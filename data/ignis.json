@@ -1,16 +1,44 @@
 [
   {
-    "variant": "DELTA 1.5L 5MT",
+    "variant": "SIGMA 1.2L 5MT",
     "fuel": "Petrol",
-    "ex_showroom": 1209700,
-    "insurance": 34919,
-    "road_tax": 181455,
+    "ex_showroom": 535100,
+    "insurance": 23123,
+    "road_tax": 69563,
     "registration": 1000,
     "fastag": 500,
-    "extended_warranty": 29465,
-    "accessories": 15535,
+    "extended_warranty": 12473,
+    "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 12097,
-    "onroad": 1485556
+    "tcs": 651189,
+    "onroad": 0
+  },
+  {
+    "variant": "DELTA 1.2L 5MT",
+    "fuel": "Petrol",
+    "ex_showroom": 584500,
+    "insurance": 23987,
+    "road_tax": 75985,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 13617,
+    "accessories": 8545,
+    "nexa_card": 885,
+    "tcs": 709019,
+    "onroad": 0
+  },
+  {
+    "variant": "ZETA 1.2L 5MT",
+    "fuel": "Petrol",
+    "ex_showroom": 637500,
+    "insurance": 24913,
+    "road_tax": 82875,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 15151,
+    "accessories": 8545,
+    "nexa_card": 885,
+    "tcs": 771369,
+    "onroad": 0
   }
 ]

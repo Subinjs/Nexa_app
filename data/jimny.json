@@ -1,16 +1,58 @@
 [
   {
-    "variant": "DELTA 1.5L 5MT",
+    "variant": "ZETA ALLGRIP PRO 1.5L 5MT",
     "fuel": "Petrol",
-    "ex_showroom": 1209700,
-    "insurance": 34919,
-    "road_tax": 181455,
+    "ex_showroom": 1231500,
+    "insurance": 35302,
+    "road_tax": 184725,
     "registration": 1000,
     "fastag": 500,
-    "extended_warranty": 29465,
+    "extended_warranty": 30007,
     "accessories": 15535,
     "nexa_card": 885,
-    "tcs": 12097,
-    "onroad": 1485556
+    "tcs": 12315,
+    "onroad": 1511769
+  },
+  {
+    "variant": "ALPHA ALLGRIP PRO 1.5L 5MT (DT)",
+    "fuel": "Petrol",
+    "ex_showroom": 1338600,
+    "insurance": 37175,
+    "road_tax": 200790,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 32615,
+    "accessories": 15535,
+    "nexa_card": 885,
+    "tcs": 13386,
+    "onroad": 1640486
+  },
+  {
+    "variant": "ZETA ALLGRIP PRO 1.5L AT",
+    "fuel": "Petrol",
+    "ex_showroom": 1337500,
+    "insurance": 37156,
+    "road_tax": 200625,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 32592,
+    "accessories": 15535,
+    "nexa_card": 885,
+    "tcs": 13375,
+    "onroad": 1639168
+  },
+  {
+    "variant": "ALPHA ALLGRIP PRO 1.5L AT (DT)",
+    "fuel": "Petrol",
+    "ex_showroom": 1444600,
+    "insurance": 39027,
+    "road_tax": 216690,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 35199,
+    "accessories": 15535,
+    "nexa_card": 885,
+    "tcs": 14446,
+    "onroad": 1767882
   }
 ]
