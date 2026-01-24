@@ -1,7 +1,7 @@
 [
   {
     "variant": "IE STRONG HYBRID ZETA+ 2L CVT 7STR (M)",
-    "fuel": "Petrol",
+    "fuel": "INTELLIGENT HYBRID",
     "ex_showroom": 2497400,
     "insurance": 77092,
     "road_tax": 549428,
@@ -15,7 +15,7 @@
   },
   {
     "variant": "IE STRONG HYBRID ZETA+ 2L CVT 7STR white",
-    "fuel": "Petrol",
+    "fuel": "INTELLIGENT HYBRID",
     "ex_showroom": 2506700,
     "insurance": 77276,
     "road_tax": 551474,
@@ -28,8 +28,22 @@
     "onroad": 3243955
   },
   {
+    "variant": "IE STRONG HYBRID ZETA+ 2L CVT 8STR (M)",
+    "fuel": "INTELLIGENT HYBRID",
+    "ex_showroom": 2502300,
+    "insurance": 77189,
+    "road_tax": 550506,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 61183,
+    "accessories": 20000,
+    "nexa_card": 885,
+    "tcs": 25023,
+    "onroad": 3238586
+  },
+  {
     "variant": "IE STRONG HYBRID ZETA+ 2L CVT 8STR WHITE",
-    "fuel": "Petrol",
+    "fuel": "INTELLIGENT HYBRID",
     "ex_showroom": 2511600,
     "insurance": 77373,
     "road_tax": 552552,
@@ -43,7 +57,7 @@
   },
   {
     "variant": "IE STRONG HYBRID ALPHA+ 2L CVT 7STR (M)",
-    "fuel": "Petrol",
+    "fuel": "INTELLIGENT HYBRID",
     "ex_showroom": 2860500,
     "insurance": 84306,
     "road_tax": 629310,
@@ -57,7 +71,7 @@
   },
   {
     "variant": "IE STRONG HYBRID ALPHA+ 2L CVT 7STR WHITE",
-    "fuel": "Petrol",
+    "fuel": "INTELLIGENT HYBRID",
     "ex_showroom": 2869800,
     "insurance": 84492,
     "road_tax": 631356,

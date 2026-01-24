@@ -1,7 +1,7 @@
 [
   {
     "variant": "SIGMA 1.5L 5MT",
-    "fuel": "Petrol",
+    "fuel": "MT",
     "ex_showroom": 908999,
     "insurance": 29660,
     "road_tax": 118170,
@@ -15,7 +15,7 @@
   },
   {
     "variant": "DELTA 1.5L 5MT",
-    "fuel": "Petrol",
+    "fuel": "MT",
     "ex_showroom": 964999,
     "insurance": 30640,
     "road_tax": 125450,
@@ -29,7 +29,7 @@
   },
   {
     "variant": "ZETA 1.5L 5MT",
-    "fuel": "Petrol",
+    "fuel": "MT",
     "ex_showroom": 1005500,
     "insurance": 31349,
     "road_tax": 150825,
@@ -43,7 +43,7 @@
   },
   {
     "variant": "ALPHA 1.5L 5MT",
-    "fuel": "Petrol",
+    "fuel": "MT",
     "ex_showroom": 1082300,
     "insurance": 32692,
     "road_tax": 162345,
@@ -54,5 +54,75 @@
     "nexa_card": 885,
     "tcs": 10823,
     "onroad": 1325920
+  },
+  {
+    "variant": "ALPHA 1.5L 5MT (DUAL TONE)",
+    "fuel": "MT",
+    "ex_showroom": 1097700,
+    "insurance": 32962,
+    "road_tax": 164655,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 26751,
+    "accessories": 8625,
+    "nexa_card": 885,
+    "tcs": 10977,
+    "onroad": 1344054
+  },
+  {
+    "variant": "DELTA 1.5L AT",
+    "fuel": "AT",
+    "ex_showroom": 1072601,
+    "insurance": 32523,
+    "road_tax": 160890,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 26137,
+    "accessories": 8625,
+    "nexa_card": 885,
+    "tcs": 10726,
+    "onroad": 1313887
+  },
+  {
+    "variant": "ZETA 1.5L AT",
+    "fuel": "AT",
+    "ex_showroom": 1111700,
+    "insurance": 33208,
+    "road_tax": 166755,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 27093,
+    "accessories": 8625,
+    "nexa_card": 885,
+    "tcs": 11117,
+    "onroad": 1360883
+  },
+  {
+    "variant": "ALPHA 1.5L AT",
+    "fuel": "AT",
+    "ex_showroom": 1188500,
+    "insurance": 34549,
+    "road_tax": 178275,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 29335,
+    "accessories": 8625,
+    "nexa_card": 885,
+    "tcs": 11885,
+    "onroad": 1453553
+  },
+  {
+    "variant": "ALPHA 1.5L AT (DUAL TONE)",
+    "fuel": "AT",
+    "ex_showroom": 1204000,
+    "insurance": 34819,
+    "road_tax": 180600,
+    "registration": 1000,
+    "fastag": 500,
+    "extended_warranty": 29335,
+    "accessories": 8625,
+    "nexa_card": 885,
+    "tcs": 12040,
+    "onroad": 1471804
   }
 ]
