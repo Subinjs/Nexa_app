@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NEXA Price Explorer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1d4ed8">
+<style>
+body{margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:#f8fafc}
+header{background:#1d4ed8;color:#fff;padding:20px}
+.container{max-width:1400px;margin:auto;padding:20px}
+.controls{display:grid;grid-template-columns:1fr 1fr auto;gap:12px}
+select,button{padding:14px;font-size:16px;border-radius:10px;border:1px solid #cbd5e1}
+button{background:#1d4ed8;color:#fff;font-weight:600;cursor:pointer}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{padding:12px;border-bottom:1px solid #e5e7eb}
+th{background:#1e40af;color:#fff;text-align:left}
+.onroad{background:#047857!important;color:#fff;font-size:18px;font-weight:700}
+@media(max-width:900px){.controls{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>🚗 NEXA Price Explorer</h1>
+<p>Free • Installable • Compare Ready</p>
+</header>
+
+<div class="container">
+<div class="controls">
+<select id="model"><option value="">Select Model</option></select>
+<select id="variant"><option value="">Select Variant</option></select>
+<button onclick="show()">Show Price</button>
+</div>
+<div id="out"></div>
+</div>
+
+<script>
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('service-worker.js');
+}
+
+const models=["grand_vitara","xl6","baleno","fronx","ignis","ciaz","jimny","invicto"];
+const modelSel=document.getElementById("model");
+const varSel=document.getElementById("variant");
+const out=document.getElementById("out");
+let DATA=[];
+
+models.forEach(m=>{
+ let o=document.createElement("option");
+ o.value=m;o.textContent=m.replace("_"," ").toUpperCase();
+ modelSel.appendChild(o);
+});
+
+modelSel.onchange=async()=>{
+ varSel.innerHTML='<option value="">Select Variant</option>';
+ out.innerHTML="";
+ if(!modelSel.value)return;
+ DATA = await fetch(`data/${modelSel.value}.json`).then(r=>r.json());
+ DATA.forEach((v,i)=>{
+  let o=document.createElement("option");
+  o.value=i;o.textContent=`${v.variant} – ₹${v.onroad.toLocaleString("en-IN")}`;
+  varSel.appendChild(o);
+ });
+};
+
+function show(){
+ if(varSel.value==="")return;
+ const v=DATA[varSel.value];
+ out.innerHTML=`
+ <table>
+ <tr><th>Variant</th><td>${v.variant}</td></tr>
+ <tr><th>Fuel</th><td>${v.fuel}</td></tr>
+ <tr><th>Ex-Showroom</th><td>₹${v.ex_showroom.toLocaleString("en-IN")}</td></tr>
+ <tr><th>Insurance</th><td>₹${v.insurance.toLocaleString("en-IN")}</td></tr>
+ <tr><th>Road Tax</th><td>₹${v.road_tax.toLocaleString("en-IN")}</td></tr>
+ <tr><th>Registration</th><td>₹${v.registration}</td></tr>
+ <tr><th>Fastag</th><td>₹${v.fastag}</td></tr>
+ <tr><th>Extended Warranty</th><td>₹${v.extended_warranty.toLocaleString("en-IN")}</td></tr>
+ <tr><th>Accessories</th><td>₹${v.accessories.toLocaleString("en-IN")}</td></tr>
+ <tr><th>NEXA Card</th><td>₹${v.nexa_card}</td></tr>
+ ${v.tcs>0?`<tr><th>TCS 1%</th><td>₹${v.tcs.toLocaleString("en-IN")}</td></tr>`:""}
+ <tr class="onroad"><th>Total On-Road</th><td>₹${v.onroad.toLocaleString("en-IN")}</td></tr>
+ </table>`;
+}
+</script>
+</body>
+</html>
