@@ -10,7 +10,8 @@
 body{margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:#f8fafc}
 header{background:#1d4ed8;color:#fff;padding:20px}
 .container{max-width:1400px;margin:auto;padding:20px}
-.controls{display:grid;grid-template-columns:1fr 1fr auto;gap:12px}
+.controls{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:center}
+.selects{display:flex;gap:12px}
 select,button{padding:14px;font-size:16px;border-radius:10px;border:1px solid #cbd5e1}
 button{background:#1d4ed8;color:#fff;font-weight:600;cursor:pointer}
 table{width:100%;border-collapse:collapse;margin-top:20px}
@@ -18,6 +19,13 @@ th,td{padding:12px;border-bottom:1px solid #e5e7eb}
 th{background:#1e40af;color:#fff;text-align:left}
 .onroad{background:#047857!important;color:#fff;font-size:18px;font-weight:700}
 @media(max-width:900px){.controls{grid-template-columns:1fr}}
+.compare-list{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.compare-item{background:#fff;border:1px solid #cbd5e1;padding:8px 10px;border-radius:8px;display:flex;gap:8px;align-items:center}
+.compare-item button{background:#ef4444;border:none;padding:6px 8px;border-radius:6px;color:#fff;cursor:pointer}
+.compare-panel{margin-top:20px}
+.best{background:#d1fae5} /* green highlight for best */
+.note{color:#374151;margin-top:6px}
+.small{font-size:13px;color:#6b7280}
 </style>
 </head>
 <body>
@@ -27,62 +35,288 @@ th{background:#1e40af;color:#fff;text-align:left}
 </header>
 
 <div class="container">
-<div class="controls">
-<select id="model"><option value="">Select Model</option></select>
-<select id="variant"><option value="">Select Variant</option></select>
-<button onclick="show()">Show Price</button>
-</div>
-<div id="out"></div>
+  <div class="controls">
+    <div class="selects">
+      <select id="model"><option value="">Select Model</option></select>
+      <select id="variant"><option value="">Select Variant</option></select>
+    </div>
+
+    <div style="display:flex;gap:8px">
+      <button id="showBtn">Show Price</button>
+      <button id="addCompareBtn">Add to Compare</button>
+      <button id="compareNowBtn">Compare Now</button>
+    </div>
+  </div>
+
+  <div class="compare-list" id="compareList" aria-live="polite"></div>
+  <div id="out"></div>
+  <div id="compareOut" class="compare-panel"></div>
+  <p class="note small">Tip: select a model, choose a variant, then "Add to Compare". You can compare variants across different models. Lowest costs are highlighted in green.</p>
 </div>
 
 <script>
 if('serviceWorker' in navigator){
- navigator.serviceWorker.register('service-worker.js');
+ navigator.serviceWorker.register('service-worker.js').catch(()=>{});
 }
 
-const models=["grand_vitara","xl6","baleno","fronx","ignis","ciaz","jimny","invicto"];
-const modelSel=document.getElementById("model");
-const varSel=document.getElementById("variant");
-const out=document.getElementById("out");
-let DATA=[];
+const modelSel = document.getElementById("model");
+const varSel = document.getElementById("variant");
+const out = document.getElementById("out");
+const compareListEl = document.getElementById("compareList");
+const compareOut = document.getElementById("compareOut");
+const showBtn = document.getElementById("showBtn");
+const addCompareBtn = document.getElementById("addCompareBtn");
+const compareNowBtn = document.getElementById("compareNowBtn");
 
-models.forEach(m=>{
- let o=document.createElement("option");
- o.value=m;o.textContent=m.replace("_"," ").toUpperCase();
- modelSel.appendChild(o);
-});
+let ALL = {};      // entire JSON
+let DATA = [];     // currently selected model array
+let COMPARE = [];  // items to compare: {modelKey, index}
 
-modelSel.onchange=async()=>{
- varSel.innerHTML='<option value="">Select Variant</option>';
- out.innerHTML="";
- if(!modelSel.value)return;
- DATA = await fetch(`data/${modelSel.value}.json`).then(r=>r.json());
- DATA.forEach((v,i)=>{
-  let o=document.createElement("option");
-  o.value=i;o.textContent=`${v.variant} – ₹${v.onroad.toLocaleString("en-IN")}`;
-  varSel.appendChild(o);
- });
+// friendly label for model keys
+function friendlyModelLabel(key){
+  // remove trailing suffixes like _2_airbag or _6_airbag or leading new_ etc for nicer labels
+  return key.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase()).replace(/\s\d\sAirbag$/i,'').replace(/\bNew\b/i,'New');
+}
+
+// safe number formatting
+function fmt(n){
+  if(n === undefined || n === null) return "₹0";
+  if(typeof n === "number") return "₹" + n.toLocaleString("en-IN");
+  let num = Number(String(n).replace(/[^0-9.-]+/g,""));
+  if(isNaN(num)) return n;
+  return "₹" + num.toLocaleString("en-IN");
+}
+
+// parse numeric from field
+function num(v){ return (v === undefined || v === null) ? 0 : Number(v) || 0; }
+
+// derive features from variant string
+function parseFeatures(variantName){
+  if(!variantName) return [];
+  const v = variantName.toUpperCase();
+  const features = [];
+  if(/CNG/.test(v)) features.push("CNG");
+  if(/HYBRID/.test(v)) features.push("Hybrid");
+  if(/\bTURBO\b/.test(v)) features.push("Turbo");
+  if(/DUAL\s*TONE/.test(v)) features.push("Dual Tone");
+  if(/\bAT\b|\bAGS\b|\bCVT\b|\bAMT\b/.test(v)) {
+    const m = v.match(/\b(6AT|5AT|6AT|AT|AGS|CVT|AMT|MT|5MT|6MT)\b/);
+    if(m) features.push(m[0].replace(/\bMT\b/,'Manual').replace(/\bAT\b/,'Auto'));
+    else if(/\bAGS\b/.test(v)) features.push("AGS");
+    else if(/\bMT\b/.test(v)) features.push("Manual");
+  } else {
+    // try to detect manual / auto from fuel column later if needed
+  }
+  // other tags
+  if(/\bESP\b/.test(v)) features.push("ESP");
+  if(/\bO\b|\(O\)/.test(v)) features.push("Optional");
+  return [...new Set(features)];
+}
+
+// load JSON and populate models
+async function loadAll(){
+  try{
+    const resp = await fetch('data/nexa_all_models_cleaned.json');
+    ALL = await resp.json();
+    const keys = Object.keys(ALL).sort((a,b)=>a.localeCompare(b));
+    keys.forEach(k=>{
+      const o = document.createElement("option");
+      o.value = k;
+      o.textContent = friendlyModelLabel(k);
+      modelSel.appendChild(o);
+    });
+  }catch(err){
+    out.innerHTML = `<p style="color:#b91c1c">Failed to load data: ${err.message}</p>`;
+  }
+}
+
+modelSel.onchange = ()=>{
+  varSel.innerHTML = '<option value="">Select Variant</option>';
+  out.innerHTML = "";
+  if(!modelSel.value) return;
+  DATA = ALL[modelSel.value] || [];
+  DATA.forEach((v,i)=>{
+    const onroad = (v && v.onroad) ? v.onroad : 0;
+    let o = document.createElement("option");
+    o.value = i;
+    o.textContent = `${v.variant} – ${onroad ? '₹' + onroad.toLocaleString("en-IN") : 'Price N/A'}`;
+    varSel.appendChild(o);
+  });
 };
 
 function show(){
- if(varSel.value==="")return;
- const v=DATA[varSel.value];
- out.innerHTML=`
- <table>
- <tr><th>Variant</th><td>${v.variant}</td></tr>
- <tr><th>Fuel</th><td>${v.fuel}</td></tr>
- <tr><th>Ex-Showroom</th><td>₹${v.ex_showroom.toLocaleString("en-IN")}</td></tr>
- <tr><th>Insurance</th><td>₹${v.insurance.toLocaleString("en-IN")}</td></tr>
- <tr><th>Road Tax</th><td>₹${v.road_tax.toLocaleString("en-IN")}</td></tr>
- <tr><th>Registration</th><td>₹${v.registration}</td></tr>
- <tr><th>Fastag</th><td>₹${v.fastag}</td></tr>
- <tr><th>Extended Warranty</th><td>₹${v.extended_warranty.toLocaleString("en-IN")}</td></tr>
- <tr><th>Accessories</th><td>₹${v.accessories.toLocaleString("en-IN")}</td></tr>
- <tr><th>NEXA Card</th><td>₹${v.nexa_card}</td></tr>
- ${v.tcs>0?`<tr><th>TCS 1%</th><td>₹${v.tcs.toLocaleString("en-IN")}</td></tr>`:""}
- <tr class="onroad"><th>Total On-Road</th><td>₹${v.onroad.toLocaleString("en-IN")}</td></tr>
- </table>`;
+  if(varSel.value === "") return;
+  const v = DATA[varSel.value];
+  if(!v) return;
+  const ex = v.ex_showroom || 0;
+  const insurance = v.insurance || 0;
+  const road_tax = v.road_tax || 0;
+  const registration = v.registration || 0;
+  const fastag = v.fastag || 0;
+  const extw = v.extended_warranty || 0;
+  const accessories = v.accessories || 0;
+  const nexa_card = v.nexa_card || 0;
+  const tcs = v.tcs || 0;
+  const onroad = v.onroad || 0;
+
+  out.innerHTML = `
+  <table>
+  <tr><th>Variant</th><td>${v.variant || ""}</td></tr>
+  <tr><th>Fuel</th><td>${v.fuel || ""}</td></tr>
+  <tr><th>Ex-Showroom</th><td>${fmt(ex)}</td></tr>
+  <tr><th>Insurance</th><td>${fmt(insurance)}</td></tr>
+  <tr><th>Road Tax</th><td>${fmt(road_tax)}</td></tr>
+  <tr><th>Registration</th><td>${fmt(registration)}</td></tr>
+  <tr><th>Fastag</th><td>${fmt(fastag)}</td></tr>
+  <tr><th>Extended Warranty</th><td>${fmt(extw)}</td></tr>
+  <tr><th>Accessories</th><td>${fmt(accessories)}</td></tr>
+  <tr><th>NEXA Card</th><td>${fmt(nexa_card)}</td></tr>
+  ${tcs>0?`<tr><th>TCS 1%</th><td>${fmt(tcs)}</td></tr>`:""}
+  <tr class="onroad"><th>Total On-Road</th><td>${fmt(onroad)}</td></tr>
+  </table>`;
 }
+
+// manage compare list
+function addToCompare(){
+  if(!modelSel.value || varSel.value === "") return alert("Select a model and variant first.");
+  if(COMPARE.length >= 6) return alert("Compare limit: 6 variants max.");
+  const itemKey = `${modelSel.value}||${varSel.value}`;
+  if(COMPARE.find(c=>c.key===itemKey)) return alert("Already added.");
+  COMPARE.push({ key: itemKey, modelKey: modelSel.value, index: Number(varSel.value) });
+  renderCompareList();
+}
+
+function removeCompare(key){
+  COMPARE = COMPARE.filter(c=>c.key!==key);
+  renderCompareList();
+  compareOut.innerHTML = "";
+}
+
+function renderCompareList(){
+  compareListEl.innerHTML = "";
+  COMPARE.forEach(c=>{
+    const modelLabel = friendlyModelLabel(c.modelKey);
+    const v = (ALL[c.modelKey] && ALL[c.modelKey][c.index]) || {};
+    const item = document.createElement("div");
+    item.className = "compare-item";
+    item.innerHTML = `<div style="font-weight:700">${v.variant || 'Unknown'}</div>
+                      <div class="small">${modelLabel}</div>
+                      <div style="margin-left:8px"><button aria-label="Remove" onclick="removeCompare('${c.key}')">Remove</button></div>`;
+    compareListEl.appendChild(item);
+  });
+  if(COMPARE.length === 0){
+    compareListEl.innerHTML = '<div class="small">No variants selected for comparison.</div>';
+  }
+}
+
+// build comparison table
+function compareNow(){
+  if(COMPARE.length < 2) return alert("Select at least 2 variants to compare.");
+  // gather items
+  const items = COMPARE.map(c=>{
+    const modelKey = c.modelKey;
+    const variant = (ALL[modelKey] && ALL[modelKey][c.index]) || {};
+    return {
+      modelKey,
+      modelLabel: friendlyModelLabel(modelKey),
+      variantIndex: c.index,
+      data: variant,
+      features: parseFeatures(variant.variant || "")
+    };
+  });
+
+  // rows to show
+  const numericRows = [
+    {key:'ex_showroom', label:'Ex-Showroom', better:'low'},
+    {key:'insurance', label:'Insurance', better:'low'},
+    {key:'road_tax', label:'Road Tax', better:'low'},
+    {key:'registration', label:'Registration', better:'low'},
+    {key:'fastag', label:'Fastag', better:'low'},
+    {key:'extended_warranty', label:'Extended Warranty', better:'high'},
+    {key:'accessories', label:'Accessories', better:'high'},
+    {key:'nexa_card', label:'NEXA Card', better:'low'},
+    {key:'tcs', label:'TCS 1%', better:'low'},
+    {key:'onroad', label:'Total On-Road', better:'low'}
+  ];
+
+  // prepare numeric arrays to compute best
+  const numericValues = {};
+  numericRows.forEach(r=>{
+    numericValues[r.key] = items.map(it=>num(it.data[r.key]));
+  });
+
+  // compute best indices for each numeric row
+  const bestIndexFor = {};
+  numericRows.forEach(r=>{
+    const vals = numericValues[r.key];
+    if(vals.length===0){ bestIndexFor[r.key]=[]; return; }
+    let bestVal = vals[0];
+    if(r.better === 'low') bestVal = Math.min(...vals);
+    else bestVal = Math.max(...vals);
+    bestIndexFor[r.key] = [];
+    vals.forEach((v,i)=>{ if(v === bestVal) bestIndexFor[r.key].push(i); });
+  });
+
+  // build HTML table: first header row with variant names
+  let html = `<table><thead><tr><th>Attribute</th>`;
+  items.forEach(it=>{
+    html += `<th>${it.data.variant || 'Variant'}<div class="small">${it.modelLabel}</div></th>`;
+  });
+  html += `</tr></thead><tbody>`;
+
+  // textual rows: Fuel, Transmission, Extracted Features
+  html += `<tr><th>Fuel</th>`;
+  items.forEach(it){ html += `<td>${it.data.fuel || ''}</td>`; }
+  html += `</tr>`;
+
+  // transmission/features detection
+  html += `<tr><th>Derived Features</th>`;
+  items.forEach(it){
+    html += `<td>${(it.features.length>0?it.features.join(', '):'—')}</td>`;
+  }
+  html += `</tr>`;
+
+  // numeric rows
+  numericRows.forEach((r)=>{
+    html += `<tr><th>${r.label}</th>`;
+    items.forEach((it, i)=>{
+      const val = it.data[r.key];
+      const formatted = (val === undefined || val === null) ? '—' : fmt(val);
+      const isBest = bestIndexFor[r.key].includes(i);
+      html += `<td${isBest ? ' class="best"':''}>${formatted}</td>`;
+    });
+    html += `</tr>`;
+  });
+
+  html += `</tbody></table>`;
+
+  // Add a small summary: cheapest on-road and cheapest ex-showroom
+  const onroadVals = items.map(it=>num(it.data.onroad));
+  const minOn = Math.min(...onroadVals);
+  const minOnIdx = onroadVals.indexOf(minOn);
+  const exVals = items.map(it=>num(it.data.ex_showroom));
+  const minEx = Math.min(...exVals);
+  const minExIdx = exVals.indexOf(minEx);
+
+  html += `<div style="margin-top:12px"><strong>Summary:</strong> Cheapest On-Road: <em>${items[minOnIdx].data.variant} (${items[minOnIdx].modelLabel}) — ${fmt(minOn)}</em>. Cheapest Ex-Showroom: <em>${items[minExIdx].data.variant} (${items[minExIdx].modelLabel}) — ${fmt(minEx)}</em>.</div>`;
+
+  compareOut.innerHTML = html;
+
+  // scroll to compare results
+  compareOut.scrollIntoView({behavior:'smooth'});
+}
+
+// wire buttons
+showBtn.addEventListener('click', show);
+addCompareBtn.addEventListener('click', addToCompare);
+compareNowBtn.addEventListener('click', compareNow);
+
+// allow removeCompare from global scope (used in onclick attr)
+window.removeCompare = removeCompare;
+
+// initial load
+loadAll();
+renderCompareList();
 </script>
 </body>
 </html>
