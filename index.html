@@ -55,7 +55,7 @@ th{background:#1e40af;color:#fff;text-align:left}
 </div>
 
 <script>
-if('serviceWorker' in navigator){
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').catch(()=>{});
 }
 
@@ -63,61 +63,95 @@ const modelSel = document.getElementById("model");
 const varSel   = document.getElementById("variant");
 const out      = document.getElementById("out");
 
+// 🔑 EXACT mapping to your filenames
 const MODELS = {
-  "grand_vitara": "Grand Vitara",
-  "xl6": "XL6",
-  "baleno": "Baleno",
-  "fronx": "Fronx",
-  "ignis": "Ignis",
-  "ciaz": "Ciaz",
-  "jimny": "Jimny",
-  "invicto": "Invicto"
+  "grand_vitara": {
+    name: "Grand Vitara (6 Airbag)",
+    file: "grand_vitara_6_airbag.json"
+  },
+  "xl6": {
+    name: "XL6 (6 Airbag)",
+    file: "new_xl6_6_airbag.json"
+  },
+  "baleno": {
+    name: "Baleno (6 Airbag)",
+    file: "baleno_6_airbag.json"
+  },
+  "fronx": {
+    name: "Fronx (6 Airbag)",
+    file: "new_fronx_6_airbag.json"
+  },
+  "ignis": {
+    name: "Ignis",
+    file: "ignis.json"
+  },
+  "ciaz": {
+    name: "Ciaz",
+    file: "ciaz.json"
+  },
+  "jimny": {
+    name: "Jimny",
+    file: "jimny.json"
+  },
+  "invicto": {
+    name: "Invicto",
+    file: "invicto.json"
+  }
 };
 
 let DATA = [];
 
-// populate models
-Object.keys(MODELS).forEach(key=>{
+// Populate model dropdown
+Object.keys(MODELS).forEach(key => {
   const o = document.createElement("option");
   o.value = key;
-  o.textContent = MODELS[key];
+  o.textContent = MODELS[key].name;
   modelSel.appendChild(o);
 });
 
-// when model changes → load JSON
-modelSel.addEventListener("change", async ()=>{
+// Load variants when model changes
+modelSel.addEventListener("change", async () => {
   varSel.innerHTML = `<option value="">Select Variant</option>`;
   out.innerHTML = "";
   DATA = [];
 
-  if(!modelSel.value) return;
+  if (!modelSel.value) return;
 
-  try{
-    const res = await fetch(`data/${modelSel.value}.json`);
+  try {
+    const res = await fetch(`data/${MODELS[modelSel.value].file}`);
     DATA = await res.json();
 
-    DATA.forEach((v,i)=>{
+    DATA.forEach((v, i) => {
+      const priceLabel =
+        v.onroad && v.onroad > 0
+          ? `₹${v.onroad.toLocaleString("en-IN")}`
+          : "Price on request";
+
       const o = document.createElement("option");
       o.value = i;
-      o.textContent = `${v.variant} – ₹${v.onroad.toLocaleString("en-IN")}`;
+      o.textContent = `${v.variant} – ${priceLabel}`;
       varSel.appendChild(o);
     });
-
-  }catch(e){
+  } catch (e) {
     out.innerHTML = `<p style="color:red">Failed to load variants</p>`;
   }
 });
 
-// show price
-document.getElementById("showBtn").addEventListener("click", ()=>{
-  if(varSel.value==="") return;
+// Show price breakup
+document.getElementById("showBtn").addEventListener("click", () => {
+  if (varSel.value === "") return;
 
   const v = DATA[varSel.value];
+
+  const onroad =
+    v.onroad && v.onroad > 0
+      ? `₹${v.onroad.toLocaleString("en-IN")}`
+      : "To be calculated";
 
   out.innerHTML = `
   <table>
     <tr><th>Variant</th><td>${v.variant}</td></tr>
-    <tr><th>Fuel</th><td>${v.fuel}</td></tr>
+    <tr><th>Fuel / Gear</th><td>${v.fuel}</td></tr>
     <tr><th>Ex-Showroom</th><td>₹${v.ex_showroom.toLocaleString("en-IN")}</td></tr>
     <tr><th>Insurance</th><td>₹${v.insurance.toLocaleString("en-IN")}</td></tr>
     <tr><th>Road Tax</th><td>₹${v.road_tax.toLocaleString("en-IN")}</td></tr>
@@ -126,11 +160,12 @@ document.getElementById("showBtn").addEventListener("click", ()=>{
     <tr><th>Extended Warranty</th><td>₹${v.extended_warranty.toLocaleString("en-IN")}</td></tr>
     <tr><th>Accessories</th><td>₹${v.accessories.toLocaleString("en-IN")}</td></tr>
     <tr><th>NEXA Card</th><td>₹${v.nexa_card}</td></tr>
-    ${v.tcs>0?`<tr><th>TCS 1%</th><td>₹${v.tcs.toLocaleString("en-IN")}</td></tr>`:""}
-    <tr class="onroad"><th>Total On-Road</th><td>₹${v.onroad.toLocaleString("en-IN")}</td></tr>
+    ${v.tcs > 0 ? `<tr><th>TCS</th><td>₹${v.tcs.toLocaleString("en-IN")}</td></tr>` : ""}
+    <tr class="onroad"><th>On-Road Price</th><td>${onroad}</td></tr>
   </table>
   `;
 });
 </script>
+
 </body>
 </html>
