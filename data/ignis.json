@@ -10,8 +10,8 @@
     "extended_warranty": 12473,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 651189,
-    "onroad": 0
+    "onroad": 651189,
+    
   },
   {
     "variant": "DELTA 1.2L 5MT",
@@ -24,8 +24,8 @@
     "extended_warranty": 13617,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 709019,
-    "onroad": 0
+    "onroad": 709019,
+    
   },
   {
     "variant": "ZETA 1.2L 5MT",
@@ -38,8 +38,8 @@
     "extended_warranty": 15151,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 771369,
-    "onroad": 0
+    "onroad": 771369,
+    
   },
   {
     "variant": "ZETA 1.2L 5MT (DUAL TONE)",
@@ -52,8 +52,8 @@
     "extended_warranty": 15151,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 785942,
-    "onroad": 0
+    "onroad": 785942,
+    
   },
   {
     "variant": "ALPHA 1.2L 5MT",
@@ -66,8 +66,8 @@
     "extended_warranty": 16544,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 841037,
-    "onroad": 0
+    "onroad": 841037,
+    
   },
   {
     "variant": "ALPHA 1.2L 5MT (DUAL TONE)",
@@ -80,8 +80,8 @@
     "extended_warranty": 16544,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 855612,
-    "onroad": 0
+    "onroad": 855612,
+    
   },
   {
     "variant": "DELTA 1.2L AGS",
@@ -94,8 +94,8 @@
     "extended_warranty": 14667,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 761705,
-    "onroad": 0
+    "onroad": 761705,
+    
   },
   {
     "variant": "ZETA 1.2L AGS",
@@ -108,8 +108,8 @@
     "extended_warranty": 16201,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 824056,
-    "onroad": 0
+    "onroad": 824056,
+    
   },
   {
     "variant": "ZETA 1.2L AGS (DUAL TONE)",
@@ -122,8 +122,8 @@
     "extended_warranty": 16201,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 838628,
-    "onroad": 0
+    "onroad": 838628,
+   
   },
   {
     "variant": "ALPHA 1.2L AGS",
@@ -136,8 +136,8 @@
     "extended_warranty": 17582,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 893711,
-    "onroad": 0
+    "onroad": 893711,
+    
   },
   {
     "variant": "ALPHA 1.2L AGS (DUAL TONE)",
@@ -150,7 +150,7 @@
     "extended_warranty": 17582,
     "accessories": 8545,
     "nexa_card": 885,
-    "tcs": 908286,
-    "onroad": 0
+    "onroad": 908286,
+    
   }
 ]
