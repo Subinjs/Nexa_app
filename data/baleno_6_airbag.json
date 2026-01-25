@@ -10,8 +10,8 @@
     "extended_warranty": 13959,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 729007,
-    "onroad": 0
+    "onroad": 729007,
+    
   },
   {
     "variant": "DELTA PETROL",
@@ -24,8 +24,8 @@
     "extended_warranty": 15847,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 824067,
-    "onroad": 0
+    "onroad": 824067,
+    
   },
   {
     "variant": "ZETA PETROL",
@@ -38,8 +38,8 @@
     "extended_warranty": 17948,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 929694,
-    "onroad": 0
+    "onroad": 929694,
+    
   },
   {
     "variant": "ALPHA PETROL",
@@ -52,8 +52,8 @@
     "extended_warranty": 20036,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 1035310,
-    "onroad": 0
+    "onroad": 1035310,
+    
   },
   {
     "variant": "DELTA (AUTOMATIC) PETROL",
@@ -66,8 +66,8 @@
     "extended_warranty": 17016,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 882750,
-    "onroad": 0
+    "onroad": 882750,
+    
   },
   {
     "variant": "ZETA (AUTOMATIC) PETROL",
@@ -80,8 +80,8 @@
     "extended_warranty": 19104,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 988364,
-    "onroad": 0
+    "onroad": 988364,
+    
   },
   {
     "variant": "ALPHA (AUTOMATIC) PETROL",
@@ -94,8 +94,8 @@
     "extended_warranty": 21205,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 1093990,
-    "onroad": 0
+    "onroad": 1093990,
+    
   },
   {
     "variant": "BALENO DELTA CNG 1.2L 5MT",
@@ -108,8 +108,8 @@
     "extended_warranty": 17948,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 930388,
-    "onroad": 0
+    "onroad": 930388,
+    
   },
   {
     "variant": "BALENO ZETA CNG 1.2L 5MT",
@@ -122,7 +122,7 @@
     "extended_warranty": 20036,
     "accessories": 9997,
     "nexa_card": 885,
-    "tcs": 1036107,
-    "onroad": 0
+    "onroad": 1036107,
+    
   }
 ]
