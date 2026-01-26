@@ -1,0 +1,161 @@
+{
+  "Baleno": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "esp": true,
+      "hill_hold": true,
+      "isofix": true,
+      "parking_sensors": "Rear",
+      "camera": "360 Degree"
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "head_up_display": true,
+      "auto_headlamps": true
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true,
+      "speakers": "ARKAMYS",
+      "connected_features": "Suzuki Connect"
+    },
+    "wheels": {
+      "tyre_size": "185/65 R15"
+    }
+  },
+  "Fronx": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "esp": true,
+      "hill_hold": true,
+      "isofix": true,
+      "parking_sensors": "Rear",
+      "camera": "360 Degree"
+    },
+    "comfort_features": {
+      "climate_control": "Automatic",
+      "cruise_control": true,
+      "head_up_display": true,
+      "auto_headlamps": true
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true,
+      "speakers": "ARKAMYS",
+      "connected_features": "Suzuki Connect",
+      "wireless_charging": true
+    },
+    "wheels": {
+      "tyre_size": "195/60 R16"
+    }
+  },
+  "Grand Vitara": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "esp": true,
+      "isofix": true,
+      "parking_sensors": "Rear",
+      "camera": "360 Degree"
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "head_up_display": true,
+      "auto_headlamps": true,
+      "sunroof": true,
+      "ventilated_seats": true
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true,
+      "connected_features": "Suzuki Connect",
+      "wireless_charging": true
+    }
+  },
+  "Ignis": {
+    "safety_features": {},
+    "comfort_features": {
+      "climate_control": "Manual"
+    },
+    "technology": {}
+  },
+  "Invicto": {
+    "safety_features": {},
+    "comfort_features": {
+      "climate_control": "Manual"
+    },
+    "technology": {}
+  },
+  "Jimny": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "esp": true,
+      "hill_hold": true,
+      "isofix": true,
+      "camera": "Rear View"
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "auto_headlamps": true
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true,
+      "speakers": "ARKAMYS"
+    },
+    "wheels": {
+      "tyre_size": "195/80 R15"
+    }
+  },
+  "XL6": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "esp": true,
+      "hill_hold": true,
+      "isofix": true,
+      "parking_sensors": "Rear",
+      "camera": "360 Degree"
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "auto_headlamps": true,
+      "ventilated_seats": true
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true,
+      "speakers": "Arkamys",
+      "connected_features": "Suzuki Connect"
+    },
+    "wheels": {
+      "tyre_size": "195/60 R16"
+    }
+  },
+  "Ciaz": {
+    "safety_features": {
+      "esp": true,
+      "isofix": true,
+      "parking_sensors": "Rear"
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "auto_headlamps": true,
+      "leather_seats": true
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true
+    },
+    "wheels": {
+      "tyre_size": "185/65 R15"
+    }
+  }
+}

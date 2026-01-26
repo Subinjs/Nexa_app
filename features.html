@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXA Features Explorer</title>
+    <meta name="description" content="Explore detailed features and variant-wise comparisons for NEXA cars">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#1a1a2e">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            font-size: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #1a1a2e;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .model-selector {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-selector label {
+            display: block;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .model-selector select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .features-container {
+            display: none;
+        }
+
+        .features-container.active {
+            display: block;
+        }
+
+        .model-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-title {
+            font-size: 2.5rem;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .model-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .model-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #666;
+            border: 2px dashed #ccc;
+        }
+
+        .specs-grid {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .spec-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .spec-value {
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+
+        .variant-comparison {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .variant-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .feature-available {
+            color: #22bb33;
+            font-weight: 600;
+        }
+
+        .feature-not-available {
+            color: #999;
+        }
+
+        .feature-highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .price-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-card h3 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #22bb33;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .model-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .spec-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .model-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 NEXA Features Explorer</h1>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'">← Price Explorer</button>
+            </div>
+        </header>
+
+        <div class="model-selector">
+            <label for="modelSelect">Select Model to View Features:</label>
+            <select id="modelSelect" aria-label="Select car model">
+                <option value="">-- Choose a Model --</option>
+            </select>
+        </div>
+
+        <div id="featuresDisplay"></div>
+    </div>
+
+    <script>
+        const MODELS = {
+            'baleno': { name: 'Baleno', file: 'baleno_features.json', priceFile: 'baleno_6_airbag.json' },
+            'fronx': { name: 'Fronx', file: 'fronx_features.json', priceFile: 'new_fronx_6_airbag.json' },
+            'grand_vitara': { name: 'Grand Vitara', file: 'grand_vitara_features.json', priceFile: 'grand_vitara_6_airbag.json' },
+            'ignis': { name: 'Ignis', file: 'ignis_features.json', priceFile: 'ignis.json' },
+            'invicto': { name: 'Invicto', file: 'invicto_features.json', priceFile: 'invicto.json' },
+            'jimny': { name: 'Jimny', file: 'jimny_features.json', priceFile: 'jimny.json' },
+            'xl6': { name: 'XL6', file: 'xl6_features.json', priceFile: 'new_xl6_6_airbag.json' },
+            'ciaz': { name: 'Ciaz', file: 'ciaz_features.json', priceFile: 'ciaz.json' }
+        };
+
+        const modelSelect = document.getElementById('modelSelect');
+        const featuresDisplay = document.getElementById('featuresDisplay');
+
+        // Populate model dropdown
+        Object.keys(MODELS).forEach(key => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = MODELS[key].name;
+            modelSelect.appendChild(option);
+        });
+
+        modelSelect.addEventListener('change', async (e) => {
+            const modelKey = e.target.value;
+            if (!modelKey) {
+                featuresDisplay.innerHTML = '';
+                return;
+            }
+
+            featuresDisplay.innerHTML = '<div class="loading">Loading features...</div>';
+
+            try {
+                const [featuresData, priceData] = await Promise.all([
+                    fetch(`data/${MODELS[modelKey].file}`).then(r => r.json()),
+                    fetch(`data/${MODELS[modelKey].priceFile}`).then(r => r.json())
+                ]);
+
+                displayFeatures(modelKey, featuresData, priceData);
+            } catch (error) {
+                featuresDisplay.innerHTML = `<div class="loading" style="color: #ff6b6b;">Error loading data: ${error.message}</div>`;
+            }
+        });
+
+        function displayFeatures(modelKey, features, prices) {
+            const modelName = MODELS[modelKey].name;
+            
+            // Generate image gallery HTML
+            const imageTypes = ['front', 'side', 'rear', 'interior'];
+            const galleryHTML = imageTypes.map(type => {
+                const imgPath = `images/${modelKey}_${type}.jpg`;
+                return `
+                    <div class="model-image" id="img-${modelKey}-${type}">
+                        <img src="${imgPath}" 
+                             alt="${modelName} ${type} view" 
+                             style="width:100%;height:100%;object-fit:cover;border-radius:12px;"
+                             onerror="this.parentElement.innerHTML='📸 ${type.charAt(0).toUpperCase() + type.slice(1)} View<br><small>Add: ${imgPath}</small>'"
+                        />
+                    </div>
+                `;
+            }).join('');
+            
+            let html = `
+                <div class="features-container active">
+                    <div class="model-header">
+                        <h2 class="model-title">${modelName}</h2>
+                        <div class="model-gallery">
+                            ${galleryHTML}
+                        </div>
+                    </div>
+
+                    <!-- Engine Specifications -->
+                    <div class="specs-grid">
+                        <h3 class="section-title">Engine & Performance</h3>
+                        ${renderEngineSpecs(features)}
+                    </div>
+
+                    <!-- Safety Features -->
+                    ${features.safety_features ? renderSafetyFeatures(features.safety_features) : ''}
+
+                    <!-- Comfort Features -->
+                    ${features.comfort_features ? renderComfortFeatures(features.comfort_features) : ''}
+
+                    <!-- Technology Features -->
+                    ${features.technology ? renderTechnologyFeatures(features.technology) : ''}
+
+                    <!-- Variant-wise Comparison -->
+                    ${renderVariantComparison(features, prices)}
+                </div>
+            `;
+
+            featuresDisplay.innerHTML = html;
+        }
+
+        function renderEngineSpecs(features) {
+            const engine = features.engine || {};
+            const transmission = features.transmission || {};
+            const mileage = features.mileage || {};
+
+            return `
+                <div class="spec-row">
+                    <div class="spec-label">Engine Displacement</div>
+                    <div class="spec-value">${engine.displacement_text || engine.displacement || 'N/A'}</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Max Power</div>
+                    <div class="spec-value">${engine.power_text || `${engine.power_ps} PS @ ${engine.power_rpm} rpm` || 'N/A'}</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Max Torque</div>
+                    <div class="spec-value">${engine.torque_text || `${engine.torque_nm} Nm @ ${engine.torque_rpm} rpm` || 'N/A'}</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Transmission</div>
+                    <div class="spec-value">${transmission.description || transmission.options?.join(', ') || 'N/A'}</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Fuel Type</div>
+                    <div class="spec-value">${features.fuel_type || 'N/A'}</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Mileage</div>
+                    <div class="spec-value">${mileage.mt || mileage.text || 'N/A'} ${mileage.type ? `(${mileage.type})` : ''}</div>
+                </div>
+            `;
+        }
+
+        function renderSafetyFeatures(safety) {
+            return `
+                <div class="specs-grid">
+                    <h3 class="section-title">Safety Features</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3>Active Safety</h3>
+                            <ul class="feature-list">
+                                ${safety.airbags ? `<li>Airbags: ${safety.airbags}</li>` : ''}
+                                ${safety.abs ? `<li>ABS with EBD</li>` : ''}
+                                ${safety.esp ? `<li>ESP (Electronic Stability Program)</li>` : ''}
+                                ${safety.hill_hold ? `<li>Hill Hold Assist</li>` : ''}
+                                ${safety.traction_control ? `<li>Traction Control</li>` : ''}
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Parking & Cameras</h3>
+                            <ul class="feature-list">
+                                ${safety.camera ? `<li>Camera: ${safety.camera}</li>` : ''}
+                                ${safety.parking_sensors ? `<li>Parking Sensors: ${safety.parking_sensors}</li>` : ''}
+                                ${safety.reverse_parking_sensors ? `<li>Reverse Parking Sensors</li>` : ''}
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Additional Safety</h3>
+                            <ul class="feature-list">
+                                ${safety.isofix ? `<li>ISOFIX Child Seat Mounts</li>` : ''}
+                                ${safety.seatbelt_reminder ? `<li>Seatbelt Reminder</li>` : ''}
+                                ${safety.impact_sensing ? `<li>Impact Sensing Auto Door Unlock</li>` : ''}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderComfortFeatures(comfort) {
+            return `
+                <div class="specs-grid">
+                    <h3 class="section-title">Comfort & Convenience</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3>Climate Control</h3>
+                            <ul class="feature-list">
+                                ${comfort.climate_control ? `<li>Climate Control: ${comfort.climate_control}</li>` : ''}
+                                ${comfort.ac_vents ? `<li>AC Vents: ${comfort.ac_vents}</li>` : ''}
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Driving Convenience</h3>
+                            <ul class="feature-list">
+                                ${comfort.cruise_control ? `<li>Cruise Control</li>` : ''}
+                                ${comfort.steering_adjustment ? `<li>Steering: ${comfort.steering_adjustment}</li>` : ''}
+                                ${comfort.keyless_entry ? `<li>Keyless Entry</li>` : ''}
+                                ${comfort.push_button_start ? `<li>Push Button Start</li>` : ''}
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Seating & Interior</h3>
+                            <ul class="feature-list">
+                                ${comfort.seats ? `<li>${comfort.seats}</li>` : ''}
+                                ${comfort.upholstery ? `<li>Upholstery: ${comfort.upholstery}</li>` : ''}
+                                ${comfort.power_windows ? `<li>Power Windows: ${comfort.power_windows}</li>` : ''}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTechnologyFeatures(tech) {
+            return `
+                <div class="specs-grid">
+                    <h3 class="section-title">Technology & Infotainment</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3>Infotainment</h3>
+                            <ul class="feature-list">
+                                ${tech.touchscreen ? `<li>Touchscreen: ${tech.touchscreen}</li>` : ''}
+                                ${tech.android_auto ? `<li>Android Auto</li>` : ''}
+                                ${tech.apple_carplay ? `<li>Apple CarPlay</li>` : ''}
+                                ${tech.speakers ? `<li>Speakers: ${tech.speakers}</li>` : ''}
+                                ${tech.navigation ? `<li>Navigation System</li>` : ''}
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Connectivity</h3>
+                            <ul class="feature-list">
+                                ${tech.bluetooth ? `<li>Bluetooth</li>` : ''}
+                                ${tech.usb_ports ? `<li>USB Ports: ${tech.usb_ports}</li>` : ''}
+                                ${tech.wireless_charger ? `<li>Wireless Charger</li>` : ''}
+                                ${tech.connected_features ? `<li>Connected Car Features</li>` : ''}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderVariantComparison(features, prices) {
+            const variants = features.variants || {};
+            const allVariants = [];
+
+            // Collect all variant names from features
+            Object.values(variants).forEach(variantList => {
+                if (Array.isArray(variantList)) {
+                    allVariants.push(...variantList);
+                }
+            });
+
+            if (allVariants.length === 0) return '';
+
+            // Map prices to variants
+            const variantPriceMap = {};
+            if (Array.isArray(prices)) {
+                prices.forEach(p => {
+                    variantPriceMap[p.variant] = p;
+                });
+            }
+
+            let tableRows = '';
+            
+            allVariants.forEach(variantName => {
+                const priceInfo = variantPriceMap[variantName] || {};
+                const onroad = priceInfo.onroad ? `₹${(priceInfo.onroad / 100000).toFixed(2)}L` : 'N/A';
+                const exShowroom = priceInfo.ex_showroom ? `₹${(priceInfo.ex_showroom / 100000).toFixed(2)}L` : 'N/A';
+                
+                tableRows += `
+                    <tr>
+                        <td class="variant-name">${variantName}</td>
+                        <td><span class="price-badge">${exShowroom}</span></td>
+                        <td><span class="price-badge">${onroad}</span></td>
+                        <td>${getVariantFeatures(variantName, features)}</td>
+                    </tr>
+                `;
+            });
+
+            return `
+                <div class="variant-comparison">
+                    <h3 class="section-title">Variant Comparison</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Variant</th>
+                                <th>Ex-Showroom</th>
+                                <th>On-Road</th>
+                                <th>Key Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function getVariantFeatures(variantName, features) {
+            const upperVariant = variantName.toUpperCase();
+            const featuresArr = [];
+
+            // Determine features based on variant name patterns
+            if (upperVariant.includes('ALPHA') || upperVariant.includes('ZETA+')) {
+                featuresArr.push('Premium Package');
+                if (features.safety_features?.camera) featuresArr.push(features.safety_features.camera);
+                if (features.technology?.touchscreen) featuresArr.push(features.technology.touchscreen);
+            } else if (upperVariant.includes('ZETA') || upperVariant.includes('DELTA+')) {
+                featuresArr.push('Mid-Range Package');
+                if (features.comfort_features?.climate_control) featuresArr.push('Auto AC');
+            } else if (upperVariant.includes('DELTA')) {
+                featuresArr.push('Essential Package');
+            } else if (upperVariant.includes('SIGMA')) {
+                featuresArr.push('Base Package');
+            }
+
+            if (upperVariant.includes('TURBO')) featuresArr.push('Turbo Engine');
+            if (upperVariant.includes('CNG')) featuresArr.push('CNG Kit');
+            if (upperVariant.includes('AMT') || upperVariant.includes('AT')) featuresArr.push('Automatic Transmission');
+
+            return featuresArr.join(', ') || 'Standard Features';
+        }
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .catch(err => console.log('Service Worker registration failed:', err));
+        }
+    </script>
+</body>
+</html>

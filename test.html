@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Page</title>
+</head>
+<body>
+<h1>Model Dropdown Test</h1>
+<select id="test"></select>
+
+<script>
+console.log("Script started");
+
+const sel = document.getElementById("test");
+console.log("Select element:", sel);
+
+const MODELS = {
+  "baleno": {name: "Baleno", file: "baleno_6_airbag.json"},
+  "ignis": {name: "Ignis", file: "ignis.json"}
+};
+
+Object.keys(MODELS).forEach(key => {
+  const o = document.createElement("option");
+  o.value = key;
+  o.textContent = MODELS[key].name;
+  sel.appendChild(o);
+  console.log("Added:", MODELS[key].name);
+});
+
+console.log("Models populated");
+</script>
+</body>
+</html>
