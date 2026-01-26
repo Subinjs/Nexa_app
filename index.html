@@ -191,13 +191,113 @@ document.getElementById("showBtn").addEventListener("click", () => {
     const trans = FEATURES.transmission;
     const mil = FEATURES.mileage;
     
+    // Get variant-specific features if available
+    const variantFeatures = FEATURES.variant_features?.[v.variant] || {};
+    
     specsHTML = `
     <div class="specs-card">
-      <h3 style="margin:0 0 12px 0;color:#1d4ed8">🔧 Specifications</h3>
+      <h3 style="margin:0 0 12px 0;color:#1d4ed8">🔧 ${v.variant} - Specifications & Features</h3>
       <div class="specs-grid">
         <div class="spec-item">
           <div class="spec-label">Engine</div>
-          <div class="spec-value">${eng.displacement_text || eng.displacement}</div>
+          <div class="spec-value">${variantFeatures.engine || eng.displacement_text || eng.displacement}</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Power</div>
+          <div class="spec-value">${eng.power_text}</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Torque</div>
+          <div class="spec-value">${eng.torque_text}</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Transmission</div>
+          <div class="spec-value">${variantFeatures.transmission || trans.description}</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Mileage (${mil.type || 'ARAI'})</div>
+          <div class="spec-value">${variantFeatures.mileage || mil.mt || mil.hybrid || 'N/A'}</div>
+        </div>
+        ${variantFeatures.airbags ? `
+        <div class="spec-item">
+          <div class="spec-label">Safety - Airbags</div>
+          <div class="spec-value"><strong>${variantFeatures.airbags}</strong></div>
+        </div>` : ''}
+        ${variantFeatures.touchscreen ? `
+        <div class="spec-item">
+          <div class="spec-label">Touchscreen</div>
+          <div class="spec-value">${variantFeatures.touchscreen}</div>
+        </div>` : ''}
+        ${variantFeatures.speakers ? `
+        <div class="spec-item">
+          <div class="spec-label">Sound System</div>
+          <div class="spec-value">${variantFeatures.speakers}</div>
+        </div>` : ''}
+        ${variantFeatures.camera ? `
+        <div class="spec-item">
+          <div class="spec-label">Camera</div>
+          <div class="spec-value"><span class="highlight-badge">${variantFeatures.camera}</span></div>
+        </div>` : ''}
+        ${variantFeatures.sunroof ? `
+        <div class="spec-item">
+          <div class="spec-label">Sunroof</div>
+          <div class="spec-value"><span class="highlight-badge">${variantFeatures.sunroof}</span></div>
+        </div>` : ''}
+        ${variantFeatures.alloy_wheels ? `
+        <div class="spec-item">
+          <div class="spec-label">Alloy Wheels</div>
+          <div class="spec-value">${variantFeatures.alloy_wheels}</div>
+        </div>` : ''}
+        ${variantFeatures.climate_control ? `
+        <div class="spec-item">
+          <div class="spec-label">Climate Control</div>
+          <div class="spec-value">${variantFeatures.climate_control}</div>
+        </div>` : ''}
+        ${variantFeatures.seating ? `
+        <div class="spec-item">
+          <div class="spec-label">Seating</div>
+          <div class="spec-value"><strong>${variantFeatures.seating}</strong></div>
+        </div>` : FEATURES.seating ? `
+        <div class="spec-item">
+          <div class="spec-label">Seating</div>
+          <div class="spec-value">${FEATURES.seating}</div>
+        </div>` : ''}
+        ${variantFeatures.hybrid || FEATURES.hybrid ? `
+        <div class="spec-item">
+          <div class="spec-label">Hybrid</div>
+          <div class="spec-value"><span class="highlight-badge">${variantFeatures.hybrid || FEATURES.hybrid.type}</span></div>
+        </div>` : ''}
+        ${variantFeatures['4wd'] || FEATURES.drivetrain ? `
+        <div class="spec-item">
+          <div class="spec-label">Drivetrain</div>
+          <div class="spec-value"><span class="highlight-badge">${variantFeatures['4wd'] || FEATURES.drivetrain.type}</span></div>
+        </div>` : ''}
+        ${variantFeatures.adas ? `
+        <div class="spec-item">
+          <div class="spec-label">ADAS</div>
+          <div class="spec-value"><span class="highlight-badge">${variantFeatures.adas}</span></div>
+        </div>` : ''}
+      </div>
+    </div>
+    
+    ${Object.keys(variantFeatures).length > 0 ? `
+    <div class="specs-card" style="margin-top:16px">
+      <h3 style="margin:0 0 12px 0;color:#1d4ed8">✨ Variant Highlights</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px">
+        ${variantFeatures.esp ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ ESP</div>' : ''}
+        ${variantFeatures.abs_ebd ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ ABS + EBD</div>' : ''}
+        ${variantFeatures.hill_hold ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ Hill Hold Assist</div>' : ''}
+        ${variantFeatures.cruise_control ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ Cruise Control</div>' : ''}
+        ${variantFeatures.keyless_entry ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ Keyless Entry</div>' : ''}
+        ${variantFeatures.push_button_start ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ Push Button Start</div>' : ''}
+        ${variantFeatures.auto_headlamps ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ Auto Headlamps</div>' : ''}
+        ${variantFeatures.rear_parking_sensors ? '<div style="padding:8px;background:#d1fae5;border-radius:6px">✓ Rear Parking Sensors</div>' : ''}
+        ${variantFeatures.wireless_charger ? '<div style="padding:8px;background:#fef3c7;border-radius:6px">⭐ Wireless Charger</div>' : ''}
+        ${variantFeatures.ventilated_seats ? '<div style="padding:8px;background:#fef3c7;border-radius:6px">⭐ Ventilated Seats</div>' : ''}
+        ${variantFeatures.head_up_display ? '<div style="padding:8px;background:#fef3c7;border-radius:6px">⭐ Head-Up Display</div>' : ''}
+        ${variantFeatures.ev_mode ? '<div style="padding:8px;background:#fef3c7;border-radius:6px">⭐ EV Mode</div>' : ''}
+      </div>
+    </div>` : ''}`;
         </div>
         <div class="spec-item">
           <div class="spec-label">Power</div>
