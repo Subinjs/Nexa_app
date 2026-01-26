@@ -191,8 +191,66 @@ document.getElementById("showBtn").addEventListener("click", () => {
     const trans = FEATURES.transmission;
     const mil = FEATURES.mileage;
     
-    // Get variant-specific features if available
-    const variantFeatures = FEATURES.variant_features?.[v.variant] || {};
+    // Smart variant matching function
+    function findVariantFeatures(variantName, variantFeaturesObj) {
+      if (!variantFeaturesObj) return {};
+      
+      // Try exact match first
+      if (variantFeaturesObj[variantName]) {
+        return variantFeaturesObj[variantName];
+      }
+      
+      // Try fuzzy matching based on variant hierarchy
+      const upper = variantName.toUpperCase();
+      
+      // Check for base variant names in order of priority
+      const patterns = [
+        { key: 'ALPHA+', variants: ['ALPHA\\+', 'ALPHA\\(O\\)'] },
+        { key: 'ALPHA', variants: ['ALPHA'] },
+        { key: 'ZETA+', variants: ['ZETA\\+', 'ZETA\\(O\\)'] },
+        { key: 'ZETA', variants: ['ZETA'] },
+        { key: 'DELTA+', variants: ['DELTA\\+', 'DELTA\\(O\\)'] },
+        { key: 'DELTA', variants: ['DELTA'] },
+        { key: 'SIGMA', variants: ['SIGMA'] }
+      ];
+      
+      // Find matching base variant
+      for (const pattern of patterns) {
+        for (const variant of pattern.variants) {
+          const regex = new RegExp(variant, 'i');
+          if (regex.test(upper)) {
+            // Check for special variants first
+            if (upper.includes('TURBO')) {
+              if (variantFeaturesObj['ALPHA+ TURBO'] && pattern.key === 'ALPHA+') return variantFeaturesObj['ALPHA+ TURBO'];
+              if (variantFeaturesObj['ALPHA TURBO'] && pattern.key === 'ALPHA') return variantFeaturesObj['ALPHA TURBO'];
+            }
+            if (upper.includes('STRONG HYBRID') || upper.includes('INTELLIGENT HYBRID')) {
+              if (variantFeaturesObj['ALPHA+ STRONG HYBRID']) return variantFeaturesObj['ALPHA+ STRONG HYBRID'];
+              if (variantFeaturesObj['ZETA+ STRONG HYBRID']) return variantFeaturesObj['ZETA+ STRONG HYBRID'];
+            }
+            if (upper.includes('7STR') || upper.includes('7 STR')) {
+              if (variantFeaturesObj[pattern.key + ' 7 STR']) return variantFeaturesObj[pattern.key + ' 7 STR'];
+            }
+            if (upper.includes('8STR') || upper.includes('8 STR')) {
+              if (variantFeaturesObj[pattern.key + ' 8 STR']) return variantFeaturesObj[pattern.key + ' 8 STR'];
+            }
+            
+            // Try base pattern with various suffixes
+            const suffixes = [' PETROL', ' MT', ' AT', ' (AUTOMATIC) PETROL', ' AMT', ''];
+            for (const suffix of suffixes) {
+              if (variantFeaturesObj[pattern.key + suffix]) {
+                return variantFeaturesObj[pattern.key + suffix];
+              }
+            }
+          }
+        }
+      }
+      
+      return {};
+    }
+    
+    // Get variant-specific features with smart matching
+    const variantFeatures = findVariantFeatures(v.variant, FEATURES.variant_features);
     
     specsHTML = `
     <div class="specs-card">
