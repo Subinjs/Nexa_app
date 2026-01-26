@@ -24,5 +24,27 @@
     "hybrid": "27.97 kmpl",
     "type": "ARAI Certified"
   },
-  "fuel_type": "Petrol / Hybrid"
+  "fuel_type": "Petrol / Hybrid",
+  "safety_features": {
+    "airbags": "6 Airbags",
+    "abs": true,
+    "esp": true,
+    "isofix": true,
+    "parking_sensors": "Rear",
+    "camera": "360 Degree"
+  },
+  "comfort_features": {
+    "climate_control": "Manual",
+    "cruise_control": true,
+    "head_up_display": true,
+    "auto_headlamps": true,
+    "sunroof": true,
+    "ventilated_seats": true
+  },
+  "technology": {
+    "android_auto": true,
+    "apple_carplay": true,
+    "connected_features": "Suzuki Connect",
+    "wireless_charging": true
+  }
 }

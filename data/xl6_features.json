@@ -27,5 +27,29 @@
     "type": "ARAI Certified"
   },
   "fuel_type": "Petrol / CNG",
-  "seating": "6-Seater with Captain Seats"
+  "seating": "6-Seater with Captain Seats",
+  "safety_features": {
+    "airbags": "6 Airbags",
+    "abs": true,
+    "esp": true,
+    "hill_hold": true,
+    "isofix": true,
+    "parking_sensors": "Rear",
+    "camera": "360 Degree"
+  },
+  "comfort_features": {
+    "climate_control": "Manual",
+    "cruise_control": true,
+    "auto_headlamps": true,
+    "ventilated_seats": true
+  },
+  "technology": {
+    "android_auto": true,
+    "apple_carplay": true,
+    "speakers": "Arkamys",
+    "connected_features": "Suzuki Connect"
+  },
+  "wheels": {
+    "tyre_size": "195/60 R16"
+  }
 }

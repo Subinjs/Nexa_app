@@ -19,5 +19,8 @@
     "amt": "20.89 kmpl",
     "type": "ARAI Certified"
   },
-  "fuel_type": "Petrol"
+  "fuel_type": "Petrol",
+  "comfort_features": {
+    "climate_control": "Manual"
+  }
 }

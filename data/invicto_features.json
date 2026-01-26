@@ -25,5 +25,8 @@
   },
   "fuel_type": "Hybrid (Petrol + Electric)",
   "seating": "7/8 Seater MPV",
-  "segment": "Premium MPV"
+  "segment": "Premium MPV",
+  "comfort_features": {
+    "climate_control": "Manual"
+  }
 }

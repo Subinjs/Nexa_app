@@ -24,5 +24,28 @@
     "MT": ["SIGMA PETROL", "DELTA PETROL", "ZETA PETROL", "ALPHA PETROL"],
     "AMT": ["DELTA (AUTOMATIC) PETROL", "ZETA (AUTOMATIC) PETROL", "ALPHA (AUTOMATIC) PETROL"],
     "CNG": ["BALENO DELTA CNG 1.2L 5MT", "BALENO ZETA CNG 1.2L 5MT", "BALENO ALPHA CNG 1.2L 5MT"]
+  },
+  "safety_features": {
+    "airbags": "6 Airbags",
+    "esp": true,
+    "hill_hold": true,
+    "isofix": true,
+    "parking_sensors": "Rear",
+    "camera": "360 Degree"
+  },
+  "comfort_features": {
+    "climate_control": "Manual",
+    "cruise_control": true,
+    "head_up_display": true,
+    "auto_headlamps": true
+  },
+  "technology": {
+    "android_auto": true,
+    "apple_carplay": true,
+    "speakers": "ARKAMYS",
+    "connected_features": "Suzuki Connect"
+  },
+  "wheels": {
+    "tyre_size": "185/65 R15"
   }
 }

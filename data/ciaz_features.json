@@ -20,5 +20,23 @@
     "type": "ARAI Certified"
   },
   "fuel_type": "Petrol",
-  "segment": "Premium Sedan"
+  "segment": "Premium Sedan",
+  "safety_features": {
+    "esp": true,
+    "isofix": true,
+    "parking_sensors": "Rear"
+  },
+  "comfort_features": {
+    "climate_control": "Manual",
+    "cruise_control": true,
+    "auto_headlamps": true,
+    "leather_seats": true
+  },
+  "technology": {
+    "android_auto": true,
+    "apple_carplay": true
+  },
+  "wheels": {
+    "tyre_size": "185/65 R15"
+  }
 }

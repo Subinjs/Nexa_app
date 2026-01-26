@@ -24,5 +24,26 @@
     "type": "ARAI Certified"
   },
   "fuel_type": "Petrol",
-  "special": "Compact 4x4 SUV"
+  "special": "Compact 4x4 SUV",
+  "safety_features": {
+    "airbags": "6 Airbags",
+    "abs": true,
+    "esp": true,
+    "hill_hold": true,
+    "isofix": true,
+    "camera": "Rear View"
+  },
+  "comfort_features": {
+    "climate_control": "Manual",
+    "cruise_control": true,
+    "auto_headlamps": true
+  },
+  "technology": {
+    "android_auto": true,
+    "apple_carplay": true,
+    "speakers": "ARKAMYS"
+  },
+  "wheels": {
+    "tyre_size": "195/80 R15"
+  }
 }

@@ -35,5 +35,30 @@
     "AMT": ["DELTA (AMT)", "DELTA+ (AMT)", "ZETA (AMT)"],
     "Turbo": ["ALPHA TURBO", "ALPHA+ TURBO"],
     "CNG": ["SIGMA CNG", "DELTA CNG", "DELTA+ CNG"]
+  },
+  "safety_features": {
+    "airbags": "6 Airbags",
+    "abs": true,
+    "esp": true,
+    "hill_hold": true,
+    "isofix": true,
+    "parking_sensors": "Rear",
+    "camera": "360 Degree"
+  },
+  "comfort_features": {
+    "climate_control": "Automatic",
+    "cruise_control": true,
+    "head_up_display": true,
+    "auto_headlamps": true
+  },
+  "technology": {
+    "android_auto": true,
+    "apple_carplay": true,
+    "speakers": "ARKAMYS",
+    "connected_features": "Suzuki Connect",
+    "wireless_charging": true
+  },
+  "wheels": {
+    "tyre_size": "195/60 R16"
   }
 }
