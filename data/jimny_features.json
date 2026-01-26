@@ -44,6 +44,49 @@
     "speakers": "ARKAMYS"
   },
   "wheels": {
-    "tyre_size": "195/80 R15"
+    "tyre_size": "195/80 R15",
+    "alloy_wheels": "15-inch Gunmetal"
+  },
+  "variants": {
+    "MT": ["ZETA MT", "ALPHA MT"],
+    "AT": ["ZETA AT", "ALPHA AT"]
+  },
+  "variant_features": {
+    "ZETA MT": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "hill_descent_control": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS (6 Speakers)",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "15-inch Gunmetal",
+      "camera": "Rear View",
+      "fog_lamps": "LED",
+      "4wd": "AllGrip Pro 4WD",
+      "off_road_features": "Low Range Transfer Case"
+    },
+    "ALPHA MT": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "hill_descent_control": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "15-inch Gunmetal Premium",
+      "camera": "Rear View",
+      "auto_headlamps": true,
+      "fog_lamps": "LED",
+      "4wd": "AllGrip Pro 4WD",
+      "off_road_features": "Low Range Transfer Case",
+      "roof_rails": true
+    }
   }
 }

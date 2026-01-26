@@ -59,6 +59,101 @@
     "wireless_charging": true
   },
   "wheels": {
-    "tyre_size": "195/60 R16"
+    "tyre_size": "195/60 R16",
+    "alloy_wheels": true
+  },
+  "variant_features": {
+    "SIGMA": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": false,
+      "touchscreen": "7-inch",
+      "speakers": "4 Speakers",
+      "cruise_control": false,
+      "keyless_entry": false,
+      "alloy_wheels": "Steel Wheels",
+      "fog_lamps": true
+    },
+    "DELTA": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS (6 Speakers)",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "15-inch",
+      "rear_parking_sensors": true,
+      "fog_lamps": "LED"
+    },
+    "DELTA+": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch",
+      "rear_parking_sensors": true,
+      "fog_lamps": "LED",
+      "auto_climate_control": true
+    },
+    "ZETA": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch Dual-Tone",
+      "rear_parking_sensors": true,
+      "camera": "Rear View",
+      "auto_climate_control": true,
+      "fog_lamps": "LED"
+    },
+    "ALPHA TURBO": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch Dual-Tone",
+      "rear_parking_sensors": true,
+      "camera": "360 Degree View",
+      "auto_climate_control": true,
+      "sunroof": false,
+      "engine": "1.0L Turbo 100PS",
+      "fog_lamps": "LED DRL"
+    },
+    "ALPHA+ TURBO": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch Dual-Tone",
+      "rear_parking_sensors": true,
+      "camera": "360 Degree View",
+      "auto_climate_control": true,
+      "sunroof": "Electric Sunroof",
+      "head_up_display": true,
+      "wireless_charger": true,
+      "engine": "1.0L Turbo 100PS",
+      "fog_lamps": "LED DRL"
+    }
   }
 }

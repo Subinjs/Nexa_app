@@ -26,7 +26,103 @@
   "fuel_type": "Hybrid (Petrol + Electric)",
   "seating": "7/8 Seater MPV",
   "segment": "Premium MPV",
+  "variants": {
+    "ZETA+": ["ZETA+ 7 STR", "ZETA+ 8 STR"],
+    "ALPHA+": ["ALPHA+ 7 STR", "ALPHA+ 8 STR"]
+  },
+  "safety_features": {
+    "airbags": "7 Airbags",
+    "abs": true,
+    "ebd": true,
+    "esp": true,
+    "hill_hold": true,
+    "isofix": true,
+    "parking_sensors": "Front & Rear",
+    "camera": "360 Degree View",
+    "adas": "Level 2 ADAS"
+  },
   "comfort_features": {
-    "climate_control": "Manual"
+    "climate_control": "3-Zone Automatic",
+    "cruise_control": "Adaptive",
+    "keyless_entry": true,
+    "push_button_start": true,
+    "power_windows": "All with Auto Up/Down",
+    "steering_adjustment": "Tilt & Telescopic",
+    "rear_ac_vents": true,
+    "ottoman_seats": "Second Row (7-Seater)",
+    "powered_seats": "Driver & Co-driver"
+  },
+  "technology": {
+    "touchscreen": "10.1-inch HD Display",
+    "android_auto": true,
+    "apple_carplay": true,
+    "speakers": "JBL Premium (9 Speakers)",
+    "connected_features": "Suzuki Connect Premium",
+    "wireless_charger": true,
+    "bluetooth": true,
+    "usb_ports": "4",
+    "rear_entertainment": "Available"
+  },
+  "wheels": {
+    "tyre_size": "215/60 R17",
+    "alloy_wheels": "17-inch Diamond-Cut"
+  },
+  "variant_features": {
+    "ZETA+ 7 STR": {
+      "airbags": "7 Airbags",
+      "touchscreen": "10.1-inch HD",
+      "speakers": "JBL (9 Speakers)",
+      "climate_control": "3-Zone Auto",
+      "seating": "7-Seater with Ottoman Seats",
+      "sunroof": "Electric Panoramic",
+      "adas": "Level 2",
+      "camera": "360 Degree",
+      "wireless_charger": true,
+      "powered_tailgate": true,
+      "ambient_lighting": true
+    },
+    "ZETA+ 8 STR": {
+      "airbags": "7 Airbags",
+      "touchscreen": "10.1-inch HD",
+      "speakers": "JBL (9 Speakers)",
+      "climate_control": "3-Zone Auto",
+      "seating": "8-Seater with Captain Seats",
+      "sunroof": "Electric Panoramic",
+      "adas": "Level 2",
+      "camera": "360 Degree",
+      "wireless_charger": true,
+      "powered_tailgate": true,
+      "ambient_lighting": true
+    },
+    "ALPHA+ 7 STR": {
+      "airbags": "7 Airbags",
+      "touchscreen": "10.1-inch HD",
+      "speakers": "JBL Premium (9 Speakers)",
+      "climate_control": "3-Zone Auto",
+      "seating": "7-Seater with Ottoman Seats",
+      "sunroof": "Electric Panoramic",
+      "adas": "Level 2 Advanced",
+      "camera": "360 Degree Panoramic",
+      "wireless_charger": true,
+      "powered_tailgate": "Hands-free",
+      "ambient_lighting": "Premium",
+      "leather_seats": "Premium Leather",
+      "rear_entertainment": "Dual Screens"
+    },
+    "ALPHA+ 8 STR": {
+      "airbags": "7 Airbags",
+      "touchscreen": "10.1-inch HD",
+      "speakers": "JBL Premium (9 Speakers)",
+      "climate_control": "3-Zone Auto",
+      "seating": "8-Seater with Captain Seats",
+      "sunroof": "Electric Panoramic",
+      "adas": "Level 2 Advanced",
+      "camera": "360 Degree Panoramic",
+      "wireless_charger": true,
+      "powered_tailgate": "Hands-free",
+      "ambient_lighting": "Premium",
+      "leather_seats": "Premium Leather",
+      "rear_entertainment": "Dual Screens"
+    }
   }
 }

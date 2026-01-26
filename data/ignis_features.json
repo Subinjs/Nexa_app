@@ -20,7 +20,87 @@
     "type": "ARAI Certified"
   },
   "fuel_type": "Petrol",
+  "variants": {
+    "MT": ["SIGMA", "DELTA", "ZETA"],
+    "AMT": ["DELTA AMT", "ZETA AMT", "ALPHA AMT"]
+  },
+  "safety_features": {
+    "airbags": "2 Airbags",
+    "abs": true,
+    "ebd": true,
+    "esp": false,
+    "isofix": true,
+    "reverse_parking_sensors": true,
+    "seat_belt_reminder": true
+  },
   "comfort_features": {
-    "climate_control": "Manual"
+    "climate_control": "Manual",
+    "keyless_entry": false,
+    "push_button_start": false,
+    "power_windows": "All 4",
+    "steering_adjustment": "Tilt",
+    "rear_ac_vents": false
+  },
+  "technology": {
+    "touchscreen": "7-inch SmartPlay Studio",
+    "android_auto": true,
+    "apple_carplay": true,
+    "speakers": "4 Speakers",
+    "bluetooth": true,
+    "usb_ports": "1"
+  },
+  "wheels": {
+    "tyre_size": "175/60 R15",
+    "alloy_wheels": true
+  },
+  "variant_features": {
+    "SIGMA": {
+      "airbags": "2 Airbags (Driver + Co-driver)",
+      "abs_ebd": true,
+      "touchscreen": "None",
+      "speakers": "2 Speakers",
+      "alloy_wheels": "Steel Wheels",
+      "power_windows": "Front Only",
+      "central_locking": true,
+      "fog_lamps": false
+    },
+    "DELTA": {
+      "airbags": "2 Airbags",
+      "abs_ebd": true,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "alloy_wheels": "15-inch",
+      "power_windows": "All 4",
+      "central_locking": "Remote",
+      "fog_lamps": true,
+      "rear_parking_sensors": true
+    },
+    "ZETA": {
+      "airbags": "2 Airbags",
+      "abs_ebd": true,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "alloy_wheels": "15-inch Dual-Tone",
+      "power_windows": "All 4",
+      "central_locking": "Remote",
+      "keyless_entry": false,
+      "fog_lamps": "LED",
+      "rear_parking_sensors": true,
+      "auto_headlamps": true
+    },
+    "ALPHA AMT": {
+      "airbags": "2 Airbags",
+      "abs_ebd": true,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "alloy_wheels": "15-inch Dual-Tone",
+      "power_windows": "All 4",
+      "keyless_entry": true,
+      "push_button_start": true,
+      "fog_lamps": "LED",
+      "rear_parking_sensors": true,
+      "auto_headlamps": true,
+      "transmission": "5-Speed AMT"
+    }
   }
 }

@@ -50,6 +50,64 @@
     "connected_features": "Suzuki Connect"
   },
   "wheels": {
-    "tyre_size": "195/60 R16"
+    "tyre_size": "195/60 R16",
+    "alloy_wheels": "16-inch Diamond-Cut"
+  },
+  "variants": {
+    "MT": ["ZETA MT", "ALPHA MT", "ALPHA+ MT"],
+    "AT": ["ZETA AT", "ALPHA AT", "ALPHA+ AT"],
+    "CNG": ["ZETA CNG", "ALPHA CNG"]
+  },
+  "variant_features": {
+    "ZETA MT": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "cruise_control": false,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch",
+      "rear_parking_sensors": true,
+      "fog_lamps": true,
+      "seating": "6-Seater Captain Seats"
+    },
+    "ALPHA MT": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch Diamond-Cut",
+      "rear_parking_sensors": true,
+      "camera": "Rear View",
+      "auto_headlamps": true,
+      "fog_lamps": "LED",
+      "seating": "6-Seater Captain Seats"
+    },
+    "ALPHA+ MT": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch Diamond-Cut",
+      "rear_parking_sensors": true,
+      "camera": "360 Degree View",
+      "auto_headlamps": true,
+      "ventilated_seats": "Front Row",
+      "fog_lamps": "LED",
+      "seating": "6-Seater Captain Seats",
+      "wireless_charger": false
+    }
   }
 }

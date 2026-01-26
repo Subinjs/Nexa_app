@@ -37,6 +37,56 @@
     "apple_carplay": true
   },
   "wheels": {
-    "tyre_size": "185/65 R15"
+    "tyre_size": "185/65 R15",
+    "alloy_wheels": "16-inch Diamond-Cut"
+  },
+  "variants": {
+    "MT": ["DELTA MT", "ZETA MT", "ALPHA MT"],
+    "AT": ["DELTA AT", "ZETA AT", "ALPHA AT"]
+  },
+  "variant_features": {
+    "DELTA MT": {
+      "airbags": "2 Airbags",
+      "abs_ebd": true,
+      "esp": false,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "cruise_control": false,
+      "keyless_entry": false,
+      "alloy_wheels": "Steel Wheels",
+      "fog_lamps": true,
+      "rear_parking_sensors": true
+    },
+    "ZETA MT": {
+      "airbags": "2 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch",
+      "auto_headlamps": true,
+      "fog_lamps": "LED",
+      "rear_parking_sensors": true,
+      "leather_seats": true
+    },
+    "ALPHA MT": {
+      "airbags": "2 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "7-inch SmartPlay Studio",
+      "speakers": "4 Speakers",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "16-inch Diamond-Cut",
+      "auto_headlamps": true,
+      "fog_lamps": "LED Projector",
+      "rear_parking_sensors": true,
+      "leather_seats": "Premium Leather",
+      "camera": "Rear View"
+    }
   }
 }

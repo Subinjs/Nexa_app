@@ -211,10 +211,75 @@
         .comparison-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
         }
 
         .comparison-table tr:hover {
             background: #f5f5f5;
+        }
+
+        .feature-matrix {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .feature-matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        .feature-matrix-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .feature-matrix-table th:first-child {
+            text-align: left;
+            min-width: 180px;
+        }
+
+        .feature-matrix-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .feature-matrix-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+            background: #f8f9fa;
+        }
+
+        .feature-yes {
+            color: #22bb33;
+            font-weight: bold;
+        }
+
+        .feature-no {
+            color: #ccc;
+        }
+
+        .feature-premium {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #1a1a2e;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
         }
 
         .variant-name {
@@ -421,6 +486,9 @@
                     <!-- Technology Features -->
                     ${features.technology ? renderTechnologyFeatures(features.technology) : ''}
 
+                    <!-- Feature Comparison Matrix -->
+                    ${renderFeatureMatrix(features, prices)}
+
                     <!-- Variant-wise Comparison -->
                     ${renderVariantComparison(features, prices)}
                 </div>
@@ -561,8 +629,129 @@
             `;
         }
 
+        function renderFeatureMatrix(features, prices) {
+            const variantFeatures = features.variant_features || {};
+            const variants = features.variants || {};
+            
+            if (Object.keys(variantFeatures).length === 0) return '';
+
+            const allVariants = [];
+            Object.values(variants).forEach(variantList => {
+                if (Array.isArray(variantList)) {
+                    allVariants.push(...variantList);
+                }
+            });
+
+            if (allVariants.length === 0) return '';
+
+            // Collect all unique feature keys
+            const featureKeys = new Set();
+            Object.values(variantFeatures).forEach(vf => {
+                Object.keys(vf).forEach(key => featureKeys.add(key));
+            });
+
+            // Feature display names
+            const featureLabels = {
+                'airbags': 'Airbags',
+                'abs_ebd': 'ABS + EBD',
+                'esp': 'ESP',
+                'hill_hold': 'Hill Hold Assist',
+                'hill_descent_control': 'Hill Descent Control',
+                'adas': 'ADAS',
+                'touchscreen': 'Touchscreen',
+                'speakers': 'Sound System',
+                'wireless_charger': 'Wireless Charger',
+                'climate_control': 'Climate Control',
+                'auto_climate_control': 'Auto AC',
+                'cruise_control': 'Cruise Control',
+                'sunroof': 'Sunroof',
+                'ventilated_seats': 'Ventilated Seats',
+                'head_up_display': 'Head-Up Display',
+                'keyless_entry': 'Keyless Entry',
+                'push_button_start': 'Push Button Start',
+                'alloy_wheels': 'Alloy Wheels',
+                'camera': 'Camera',
+                'rear_parking_sensors': 'Rear Parking Sensors',
+                'fog_lamps': 'Fog Lamps',
+                'auto_headlamps': 'Auto Headlamps',
+                'seating': 'Seating Configuration',
+                'hybrid': 'Hybrid Type',
+                'mileage': 'Mileage',
+                'ev_mode': 'EV Mode',
+                '4wd': '4WD System',
+                'off_road_features': 'Off-Road',
+                'transmission': 'Transmission',
+                'engine': 'Engine',
+                'leather_seats': 'Leather Seats',
+                'powered_tailgate': 'Powered Tailgate',
+                'ambient_lighting': 'Ambient Lighting',
+                'rear_entertainment': 'Rear Entertainment'
+            };
+
+            // Build matrix rows
+            let matrixRows = '';
+            Array.from(featureKeys).forEach(key => {
+                if (!featureLabels[key]) return; // Skip unlabeled features
+                
+                const label = featureLabels[key];
+                let row = `<tr><td>${label}</td>`;
+                
+                allVariants.forEach(variantName => {
+                    const vData = variantFeatures[variantName] || {};
+                    const value = vData[key];
+                    
+                    let cellContent = '—';
+                    if (value === true) {
+                        cellContent = '<span class="feature-yes">✓</span>';
+                    } else if (value === false) {
+                        cellContent = '<span class="feature-no">✗</span>';
+                    } else if (value) {
+                        // Check if it's a premium feature
+                        const valueStr = String(value);
+                        if (valueStr.includes('Panoramic') || valueStr.includes('Premium') || 
+                            valueStr.includes('360') || valueStr.includes('Level 2') || 
+                            valueStr.includes('Strong Hybrid')) {
+                            cellContent = `<span class="feature-premium">${value}</span>`;
+                        } else {
+                            cellContent = value;
+                        }
+                    }
+                    
+                    row += `<td>${cellContent}</td>`;
+                });
+                
+                row += '</tr>';
+                matrixRows += row;
+            });
+
+            // Build header
+            let headerCells = '<th>Feature</th>';
+            allVariants.forEach(v => {
+                const shortName = v.replace(/PETROL|MT|AT|AMT|CNG|STR/gi, '').trim();
+                headerCells += `<th>${shortName || v}</th>`;
+            });
+
+            return `
+                <div class="feature-matrix">
+                    <h3 class="section-title">Feature Comparison Matrix</h3>
+                    <p style="color:#666;margin-bottom:15px;font-size:0.9rem;">
+                        Compare features across all variants at a glance
+                    </p>
+                    <table class="feature-matrix-table">
+                        <thead>
+                            <tr>${headerCells}</tr>
+                        </thead>
+                        <tbody>
+                            ${matrixRows}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
         function renderVariantComparison(features, prices) {
             const variants = features.variants || {};
+            const variantFeatures = features.variant_features || {};
             const allVariants = [];
 
             // Collect all variant names from features
@@ -589,26 +778,30 @@
                 const onroad = priceInfo.onroad ? `₹${(priceInfo.onroad / 100000).toFixed(2)}L` : 'N/A';
                 const exShowroom = priceInfo.ex_showroom ? `₹${(priceInfo.ex_showroom / 100000).toFixed(2)}L` : 'N/A';
                 
+                // Get actual variant-specific features from JSON
+                const vFeatures = variantFeatures[variantName] || {};
+                const featuresList = getDetailedVariantFeatures(variantName, vFeatures, features);
+                
                 tableRows += `
                     <tr>
                         <td class="variant-name">${variantName}</td>
                         <td><span class="price-badge">${exShowroom}</span></td>
                         <td><span class="price-badge">${onroad}</span></td>
-                        <td>${getVariantFeatures(variantName, features)}</td>
+                        <td style="max-width:400px;">${featuresList}</td>
                     </tr>
                 `;
             });
 
             return `
                 <div class="variant-comparison">
-                    <h3 class="section-title">Variant Comparison</h3>
+                    <h3 class="section-title">Detailed Variant Comparison</h3>
                     <table class="comparison-table">
                         <thead>
                             <tr>
-                                <th>Variant</th>
+                                <th style="min-width:150px;">Variant</th>
                                 <th>Ex-Showroom</th>
                                 <th>On-Road</th>
-                                <th>Key Features</th>
+                                <th style="min-width:350px;">Key Features & Specifications</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -617,6 +810,52 @@
                     </table>
                 </div>
             `;
+        }
+
+        function getDetailedVariantFeatures(variantName, variantData, modelFeatures) {
+            if (!variantData || Object.keys(variantData).length === 0) {
+                return getVariantFeatures(variantName, modelFeatures); // Fallback to old method
+            }
+
+            const features = [];
+            
+            // Safety Features
+            if (variantData.airbags) features.push(`<strong>🛡️ ${variantData.airbags}</strong>`);
+            if (variantData.esp) features.push('ESP');
+            if (variantData.abs_ebd) features.push('ABS+EBD');
+            if (variantData.hill_hold) features.push('Hill Hold');
+            if (variantData.camera) features.push(`📷 ${variantData.camera}`);
+            if (variantData.adas) features.push(`<span class="feature-highlight">ADAS: ${variantData.adas}</span>`);
+            
+            // Technology
+            if (variantData.touchscreen) features.push(`📱 ${variantData.touchscreen}`);
+            if (variantData.speakers) features.push(`🔊 ${variantData.speakers}`);
+            if (variantData.wireless_charger) features.push('Wireless Charger');
+            
+            // Comfort
+            if (variantData.climate_control) features.push(`❄️ AC: ${variantData.climate_control}`);
+            if (variantData.auto_climate_control) features.push('Auto AC');
+            if (variantData.cruise_control) features.push(`🚗 Cruise: ${variantData.cruise_control === true ? 'Yes' : variantData.cruise_control}`);
+            if (variantData.sunroof) features.push(`<span class="feature-highlight">☀️ ${variantData.sunroof}</span>`);
+            if (variantData.ventilated_seats) features.push(`Ventilated Seats: ${variantData.ventilated_seats}`);
+            if (variantData.head_up_display) features.push('HUD');
+            if (variantData.keyless_entry) features.push('Keyless Entry');
+            if (variantData.push_button_start) features.push('Push Start');
+            if (variantData.seating) features.push(`<strong>${variantData.seating}</strong>`);
+            
+            // Wheels
+            if (variantData.alloy_wheels) features.push(`⚙️ ${variantData.alloy_wheels} Alloys`);
+            
+            // Special
+            if (variantData.hybrid) features.push(`<span class="feature-highlight">⚡ ${variantData.hybrid}</span>`);
+            if (variantData.mileage) features.push(`<strong>⛽ ${variantData.mileage}</strong>`);
+            if (variantData.ev_mode) features.push('🔋 EV Mode');
+            if (variantData['4wd']) features.push(`<span class="feature-highlight">🏔️ ${variantData['4wd']}</span>`);
+            if (variantData.off_road_features) features.push(variantData.off_road_features);
+            if (variantData.transmission) features.push(`⚙️ ${variantData.transmission}`);
+            if (variantData.engine) features.push(`<strong>${variantData.engine}</strong>`);
+            
+            return features.length > 0 ? features.join(' • ') : 'Standard Features';
         }
 
         function getVariantFeatures(variantName, features) {

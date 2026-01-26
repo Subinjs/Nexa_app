@@ -27,25 +27,98 @@
   },
   "safety_features": {
     "airbags": "6 Airbags",
+    "abs": true,
+    "ebd": true,
     "esp": true,
     "hill_hold": true,
     "isofix": true,
     "parking_sensors": "Rear",
-    "camera": "360 Degree"
+    "camera": "360 Degree",
+    "reverse_parking_sensors": true,
+    "seat_belt_reminder": true
   },
   "comfort_features": {
     "climate_control": "Manual",
     "cruise_control": true,
     "head_up_display": true,
-    "auto_headlamps": true
+    "auto_headlamps": true,
+    "keyless_entry": true,
+    "push_button_start": true,
+    "power_windows": "All 4",
+    "steering_adjustment": "Tilt & Telescopic",
+    "rear_ac_vents": false
   },
   "technology": {
+    "touchscreen": "9-inch SmartPlay Pro+",
     "android_auto": true,
     "apple_carplay": true,
-    "speakers": "ARKAMYS",
-    "connected_features": "Suzuki Connect"
+    "speakers": "ARKAMYS Premium (4 Speakers + 2 Tweeters)",
+    "connected_features": "Suzuki Connect",
+    "bluetooth": true,
+    "usb_ports": "2",
+    "wireless_charger": false
   },
   "wheels": {
-    "tyre_size": "185/65 R15"
+    "tyre_size": "185/65 R15",
+    "alloy_wheels": true
+  },
+  "variant_features": {
+    "SIGMA PETROL": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": false,
+      "touchscreen": "7-inch",
+      "speakers": "4 Speakers",
+      "cruise_control": false,
+      "keyless_entry": false,
+      "alloy_wheels": false,
+      "fog_lamps": true,
+      "power_windows": "All 4"
+    },
+    "DELTA PETROL": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS (4 + 2 Tweeters)",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": true,
+      "auto_headlamps": true,
+      "rear_parking_sensors": true
+    },
+    "ZETA PETROL": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "15-inch Premium",
+      "auto_headlamps": true,
+      "head_up_display": false,
+      "rear_parking_sensors": true,
+      "fog_lamps": "LED"
+    },
+    "ALPHA PETROL": {
+      "airbags": "6 Airbags",
+      "abs_ebd": true,
+      "esp": true,
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "speakers": "ARKAMYS Premium",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": true,
+      "alloy_wheels": "15-inch Premium",
+      "auto_headlamps": true,
+      "head_up_display": true,
+      "camera": "360 Degree View",
+      "rear_parking_sensors": true,
+      "fog_lamps": "LED",
+      "wireless_charger": false
+    }
   }
 }
