@@ -1,6 +1,44 @@
-self.addEventListener('install',e=>{
- e.waitUntil(caches.open('nexa-v1').then(c=>c.addAll(['./','index.html'])));
+const CACHE_NAME = 'nexa-v2';
+const urlsToCache = [
+  './',
+  'index.html',
+  'manifest.json',
+  'data/baleno_6_airbag.json',
+  'data/ciaz.json',
+  'data/grand_vitara_6_airbag.json',
+  'data/ignis.json',
+  'data/invicto.json',
+  'data/jimny.json',
+  'data/new_fronx_6_airbag.json',
+  'data/new_xl6_6_airbag.json'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
+  );
 });
-self.addEventListener('fetch',e=>{
- e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
+      .catch(() => caches.match('index.html'))
+  );
 });

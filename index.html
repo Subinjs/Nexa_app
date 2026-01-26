@@ -6,12 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1d4ed8">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 body{margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:#f8fafc}
 header{background:#1d4ed8;color:#fff;padding:20px}
 .container{max-width:1400px;margin:auto;padding:20px}
 .controls{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:center}
 .selects{display:flex;gap:12px}
+.btn-group{display:flex;gap:8px}
 select,button{padding:14px;font-size:16px;border-radius:10px;border:1px solid #cbd5e1}
 button{background:#1d4ed8;color:#fff;font-weight:600;cursor:pointer}
 table{width:100%;border-collapse:collapse;margin-top:20px}
@@ -37,11 +39,11 @@ th{background:#1e40af;color:#fff;text-align:left}
 <div class="container">
   <div class="controls">
     <div class="selects">
-      <select id="model"><option value="">Select Model</option></select>
-      <select id="variant"><option value="">Select Variant</option></select>
+      <select id="model" aria-label="Select car model"><option value="">Select Model</option></select>
+      <select id="variant" aria-label="Select car variant"><option value="">Select Variant</option></select>
     </div>
 
-    <div style="display:flex;gap:8px">
+    <div class="btn-group">
       <button id="showBtn">Show Price</button>
       <button id="addCompareBtn">Add to Compare</button>
       <button id="compareNowBtn">Compare Now</button>
@@ -137,6 +139,11 @@ modelSel.addEventListener("change", async () => {
   }
 });
 
+// Compare list
+let compareList = [];
+const compareListDiv = document.getElementById("compareList");
+const compareOutDiv = document.getElementById("compareOut");
+
 // Show price breakup
 document.getElementById("showBtn").addEventListener("click", () => {
   if (varSel.value === "") return;
@@ -164,6 +171,115 @@ document.getElementById("showBtn").addEventListener("click", () => {
     <tr class="onroad"><th>On-Road Price</th><td>${onroad}</td></tr>
   </table>
   `;
+});
+
+// Add to compare
+document.getElementById("addCompareBtn").addEventListener("click", () => {
+  if (varSel.value === "" || !modelSel.value) {
+    alert("Please select both model and variant first");
+    return;
+  }
+
+  const v = DATA[varSel.value];
+  const modelName = MODELS[modelSel.value].name;
+  
+  // Check if already in list
+  const exists = compareList.find(item => 
+    item.model === modelName && item.variant.variant === v.variant
+  );
+  
+  if (exists) {
+    alert("This variant is already in your compare list");
+    return;
+  }
+
+  compareList.push({
+    model: modelName,
+    variant: v
+  });
+
+  renderCompareList();
+});
+
+// Render compare list
+function renderCompareList() {
+  if (compareList.length === 0) {
+    compareListDiv.innerHTML = "";
+    return;
+  }
+
+  compareListDiv.innerHTML = compareList.map((item, idx) => `
+    <div class="compare-item">
+      <span>${item.model} - ${item.variant.variant}</span>
+      <button onclick="removeFromCompare(${idx})">✕</button>
+    </div>
+  `).join("");
+}
+
+// Remove from compare
+window.removeFromCompare = function(idx) {
+  compareList.splice(idx, 1);
+  renderCompareList();
+  if (compareList.length === 0) {
+    compareOutDiv.innerHTML = "";
+  }
+};
+
+// Compare now
+document.getElementById("compareNowBtn").addEventListener("click", () => {
+  if (compareList.length < 2) {
+    alert("Please add at least 2 variants to compare");
+    return;
+  }
+
+  // Find min values for highlighting
+  const fields = ['ex_showroom', 'insurance', 'road_tax', 'extended_warranty', 'accessories', 'onroad'];
+  const minValues = {};
+  
+  fields.forEach(field => {
+    const values = compareList
+      .map(item => item.variant[field] || 0)
+      .filter(val => val > 0);
+    minValues[field] = values.length > 0 ? Math.min(...values) : 0;
+  });
+
+  const formatCell = (value, field) => {
+    if (!value || value === 0) return "N/A";
+    const formatted = `₹${value.toLocaleString("en-IN")}`;
+    const isBest = minValues[field] > 0 && value === minValues[field];
+    return `<td class="${isBest ? 'best' : ''}">${formatted}</td>`;
+  };
+
+  let tableHTML = `<table>
+    <thead>
+      <tr>
+        <th>Details</th>
+        ${compareList.map(item => `<th>${item.model}<br><small>${item.variant.variant}</small></th>`).join("")}
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Fuel / Gear</th>${compareList.map(item => `<td>${item.variant.fuel}</td>`).join("")}</tr>
+      <tr><th>Ex-Showroom</th>${compareList.map(item => formatCell(item.variant.ex_showroom, 'ex_showroom')).join("")}</tr>
+      <tr><th>Insurance</th>${compareList.map(item => formatCell(item.variant.insurance, 'insurance')).join("")}</tr>
+      <tr><th>Road Tax</th>${compareList.map(item => formatCell(item.variant.road_tax, 'road_tax')).join("")}</tr>
+      <tr><th>Registration</th>${compareList.map(item => `<td>₹${item.variant.registration}</td>`).join("")}</tr>
+      <tr><th>Fastag</th>${compareList.map(item => `<td>₹${item.variant.fastag}</td>`).join("")}</tr>
+      <tr><th>Extended Warranty</th>${compareList.map(item => formatCell(item.variant.extended_warranty, 'extended_warranty')).join("")}</tr>
+      <tr><th>Accessories</th>${compareList.map(item => formatCell(item.variant.accessories, 'accessories')).join("")}</tr>
+      <tr><th>NEXA Card</th>${compareList.map(item => `<td>₹${item.variant.nexa_card}</td>`).join("")}</tr>`;
+
+  // Add TCS row if any variant has it
+  const hasTCS = compareList.some(item => item.variant.tcs > 0);
+  if (hasTCS) {
+    tableHTML += `<tr><th>TCS</th>${compareList.map(item => `<td>${item.variant.tcs > 0 ? '₹' + item.variant.tcs.toLocaleString("en-IN") : 'N/A'}</td>`).join("")}</tr>`;
+  }
+
+  tableHTML += `<tr class="onroad"><th>On-Road Price</th>${compareList.map(item => formatCell(item.variant.onroad, 'onroad')).join("")}</tr>
+    </tbody>
+  </table>`;
+
+  compareOutDiv.innerHTML = tableHTML;
+  compareOutDiv.scrollIntoView({ behavior: 'smooth' });
 });
 </script>
 
