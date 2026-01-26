@@ -1,0 +1,23 @@
+{
+  "model_name": "Ignis",
+  "engine": {
+    "displacement": "1197cc",
+    "displacement_text": "1.2L Petrol",
+    "power_ps": 83,
+    "power_rpm": 6000,
+    "power_text": "83PS @ 6000 rpm",
+    "torque_nm": 113,
+    "torque_rpm": 4200,
+    "torque_text": "113Nm @ 4200 rpm"
+  },
+  "transmission": {
+    "options": ["5MT", "5AMT"],
+    "description": "5-Speed Manual / 5-Speed AMT"
+  },
+  "mileage": {
+    "mt": "20.89 kmpl",
+    "amt": "20.89 kmpl",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Petrol"
+}

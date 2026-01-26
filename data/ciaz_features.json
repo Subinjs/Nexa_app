@@ -1,0 +1,24 @@
+{
+  "model_name": "Ciaz",
+  "engine": {
+    "displacement": "1462cc",
+    "displacement_text": "1.5L K15B Petrol",
+    "power_ps": 105,
+    "power_rpm": 6000,
+    "power_text": "105PS @ 6000 rpm",
+    "torque_nm": 138,
+    "torque_rpm": 4400,
+    "torque_text": "138Nm @ 4400 rpm"
+  },
+  "transmission": {
+    "options": ["5MT", "4AT"],
+    "description": "5-Speed Manual / 4-Speed AT"
+  },
+  "mileage": {
+    "mt": "20.65 kmpl",
+    "at": "20.04 kmpl",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Petrol",
+  "segment": "Premium Sedan"
+}

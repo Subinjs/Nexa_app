@@ -1,0 +1,31 @@
+{
+  "model_name": "XL6",
+  "engine": {
+    "displacement": "1462cc",
+    "displacement_text": "1.5L Petrol",
+    "power_ps": 103,
+    "power_rpm": 6000,
+    "power_text": "103PS @ 6000 rpm",
+    "torque_nm": 137,
+    "torque_rpm": 4400,
+    "torque_text": "137Nm @ 4400 rpm"
+  },
+  "engine_cng": {
+    "displacement": "1462cc",
+    "power_ps": 87,
+    "power_text": "87PS (CNG)",
+    "torque_text": "121.5Nm (CNG)"
+  },
+  "transmission": {
+    "options": ["5MT", "6AT"],
+    "description": "5-Speed Manual / 6-Speed AT"
+  },
+  "mileage": {
+    "mt": "20.97 kmpl",
+    "at": "20.27 kmpl",
+    "cng": "26.32 km/kg",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Petrol / CNG",
+  "seating": "6-Seater with Captain Seats"
+}

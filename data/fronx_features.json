@@ -1,0 +1,39 @@
+{
+  "model_name": "Fronx",
+  "engine": {
+    "displacement": "1197cc",
+    "displacement_text": "1.2L NA Petrol / Turbo",
+    "power_ps": 90,
+    "power_rpm": 6000,
+    "power_text": "90PS @ 6000 rpm (NA) / 100PS (Turbo)",
+    "torque_nm": 113,
+    "torque_rpm": 4400,
+    "torque_text": "113Nm @ 4400 rpm (NA) / 147.6Nm (Turbo)"
+  },
+  "engine_cng": {
+    "displacement": "1197cc",
+    "power_ps": 78,
+    "power_rpm": 6000,
+    "power_text": "78PS @ 6000 rpm",
+    "torque_nm": 99,
+    "torque_rpm": 4300,
+    "torque_text": "99Nm @ 4300 rpm"
+  },
+  "transmission": {
+    "options": ["5MT", "5AMT", "6AT"],
+    "description": "5-Speed Manual / 5-Speed AMT / 6-Speed AT (Turbo)"
+  },
+  "mileage": {
+    "mt": "21.79 kmpl",
+    "amt": "21.79 kmpl",
+    "cng": "28.51 km/kg",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Petrol / CNG",
+  "variants": {
+    "MT": ["SIGMA", "DELTA", "DELTA+", "ZETA"],
+    "AMT": ["DELTA (AMT)", "DELTA+ (AMT)", "ZETA (AMT)"],
+    "Turbo": ["ALPHA TURBO", "ALPHA+ TURBO"],
+    "CNG": ["SIGMA CNG", "DELTA CNG", "DELTA+ CNG"]
+  }
+}

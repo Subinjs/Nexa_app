@@ -1,0 +1,28 @@
+{
+  "model_name": "Baleno",
+  "engine": {
+    "displacement": "1197cc",
+    "displacement_text": "1.2L NA Petrol",
+    "power_ps": 90,
+    "power_rpm": 6000,
+    "power_text": "90PS @ 6000 rpm",
+    "torque_nm": 113,
+    "torque_rpm": 4400,
+    "torque_text": "113Nm @ 4400 rpm"
+  },
+  "transmission": {
+    "options": ["5MT", "5AMT"],
+    "description": "5-Speed Manual / 5-Speed AMT"
+  },
+  "mileage": {
+    "mt": "22.35 kmpl",
+    "amt": "22.35 kmpl",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Petrol",
+  "variants": {
+    "MT": ["SIGMA PETROL", "DELTA PETROL", "ZETA PETROL", "ALPHA PETROL"],
+    "AMT": ["DELTA (AUTOMATIC) PETROL", "ZETA (AUTOMATIC) PETROL", "ALPHA (AUTOMATIC) PETROL"],
+    "CNG": ["BALENO DELTA CNG 1.2L 5MT", "BALENO ZETA CNG 1.2L 5MT", "BALENO ALPHA CNG 1.2L 5MT"]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "model_name": "Invicto",
+  "engine": {
+    "displacement": "1987cc",
+    "displacement_text": "2.0L Strong Hybrid",
+    "power_ps": 152,
+    "power_combined": "184PS (Combined)",
+    "power_text": "152PS @ 6000 rpm (Petrol) + Electric Motor",
+    "torque_nm": 188,
+    "torque_text": "188Nm @ 4400-5200 rpm"
+  },
+  "hybrid": {
+    "type": "Strong Hybrid (Self-Charging)",
+    "battery": "Lithium-ion",
+    "electric_motor": "113PS, 206Nm",
+    "description": "Self-Charging Hybrid with EV Mode"
+  },
+  "transmission": {
+    "options": ["e-CVT"],
+    "description": "e-CVT (Electronic Continuously Variable)"
+  },
+  "mileage": {
+    "hybrid": "23.24 kmpl",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Hybrid (Petrol + Electric)",
+  "seating": "7/8 Seater MPV",
+  "segment": "Premium MPV"
+}

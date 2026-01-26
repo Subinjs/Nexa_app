@@ -1,0 +1,28 @@
+{
+  "model_name": "Jimny",
+  "engine": {
+    "displacement": "1462cc",
+    "displacement_text": "1.5L K15B Petrol",
+    "power_ps": 105,
+    "power_rpm": 6000,
+    "power_text": "105PS @ 6000 rpm",
+    "torque_nm": 134,
+    "torque_rpm": 4000,
+    "torque_text": "134Nm @ 4000 rpm"
+  },
+  "transmission": {
+    "options": ["5MT", "4AT"],
+    "description": "5-Speed Manual / 4-Speed AT"
+  },
+  "drivetrain": {
+    "type": "AllGrip Pro 4WD",
+    "description": "Part-time 4WD with Low Range Transfer Case"
+  },
+  "mileage": {
+    "mt": "16.39 kmpl",
+    "at": "16.94 kmpl",
+    "type": "ARAI Certified"
+  },
+  "fuel_type": "Petrol",
+  "special": "Compact 4x4 SUV"
+}

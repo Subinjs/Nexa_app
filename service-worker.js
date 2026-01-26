@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nexa-v2';
+const CACHE_NAME = 'nexa-v3';
 const urlsToCache = [
   './',
   'index.html',
@@ -10,7 +10,15 @@ const urlsToCache = [
   'data/invicto.json',
   'data/jimny.json',
   'data/new_fronx_6_airbag.json',
-  'data/new_xl6_6_airbag.json'
+  'data/new_xl6_6_airbag.json',
+  'data/baleno_features.json',
+  'data/ciaz_features.json',
+  'data/grand_vitara_features.json',
+  'data/ignis_features.json',
+  'data/invicto_features.json',
+  'data/jimny_features.json',
+  'data/fronx_features.json',
+  'data/xl6_features.json'
 ];
 
 self.addEventListener('install', event => {
