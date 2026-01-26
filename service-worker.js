@@ -1,8 +1,7 @@
-const CACHE_NAME = 'nexa-v4';
+const CACHE_NAME = 'nexa-v5';
 const urlsToCache = [
   './',
   'index.html',
-  'features.html',
   'manifest.json',
   'data/baleno_6_airbag.json',
   'data/ciaz.json',
