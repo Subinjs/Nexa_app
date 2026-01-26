@@ -11,7 +11,10 @@
     "torque_text": "113Nm @ 4400 rpm"
   },
   "transmission": {
-    "options": ["5MT", "5AMT"],
+    "options": [
+      "5MT",
+      "5AMT"
+    ],
     "description": "5-Speed Manual / 5-Speed AMT"
   },
   "mileage": {
@@ -21,21 +24,38 @@
   },
   "fuel_type": "Petrol",
   "variants": {
-    "MT": ["SIGMA PETROL", "DELTA PETROL", "ZETA PETROL", "ALPHA PETROL"],
-    "AMT": ["DELTA (AUTOMATIC) PETROL", "ZETA (AUTOMATIC) PETROL", "ALPHA (AUTOMATIC) PETROL"],
-    "CNG": ["BALENO DELTA CNG 1.2L 5MT", "BALENO ZETA CNG 1.2L 5MT", "BALENO ALPHA CNG 1.2L 5MT"]
+    "MT": [
+      "SIGMA PETROL",
+      "DELTA PETROL",
+      "ZETA PETROL",
+      "ALPHA PETROL"
+    ],
+    "AMT": [
+      "DELTA (AUTOMATIC) PETROL",
+      "ZETA (AUTOMATIC) PETROL",
+      "ALPHA (AUTOMATIC) PETROL"
+    ],
+    "CNG": [
+      "BALENO DELTA CNG 1.2L 5MT",
+      "BALENO ZETA CNG 1.2L 5MT",
+      "BALENO ALPHA CNG 1.2L 5MT"
+    ]
   },
   "safety_features": {
     "airbags": "6 Airbags",
-    "abs": true,
-    "ebd": true,
+    "abs": false,
+    "ebd": false,
     "esp": true,
     "hill_hold": true,
     "isofix": true,
     "parking_sensors": "Rear",
     "camera": "360 Degree",
     "reverse_parking_sensors": true,
-    "seat_belt_reminder": true
+    "seat_belt_reminder": true,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "adas": false,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Manual",
@@ -43,20 +63,28 @@
     "head_up_display": true,
     "auto_headlamps": true,
     "keyless_entry": true,
-    "push_button_start": true,
-    "power_windows": "All 4",
+    "push_button_start": false,
+    "power_windows": true,
     "steering_adjustment": "Tilt & Telescopic",
-    "rear_ac_vents": false
+    "rear_ac_vents": false,
+    "ac_vents": "Front & Rear",
+    "ventilated_seats": false,
+    "leather_seats": false,
+    "powered_seats": false,
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "touchscreen": "9-inch SmartPlay Pro+",
     "android_auto": true,
     "apple_carplay": true,
-    "speakers": "ARKAMYS Premium (4 Speakers + 2 Tweeters)",
+    "speakers": "ARKAMYS",
     "connected_features": "Suzuki Connect",
-    "bluetooth": true,
+    "bluetooth": false,
     "usb_ports": "2",
-    "wireless_charger": false
+    "wireless_charger": false,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "185/65 R15",
@@ -120,5 +148,11 @@
       "fog_lamps": "LED",
       "wireless_charger": false
     }
+  },
+  "exterior": {
+    "led_headlamps": true,
+    "led_drls": true,
+    "fog_lamps": true,
+    "roof_rails": false
   }
 }

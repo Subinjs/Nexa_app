@@ -11,13 +11,13 @@
     "torque_text": "134Nm @ 4000 rpm"
   },
   "transmission": {
-    "options": ["5MT", "4AT"],
+    "options": [
+      "5MT",
+      "4AT"
+    ],
     "description": "5-Speed Manual / 4-Speed AT"
   },
-  "drivetrain": {
-    "type": "AllGrip Pro 4WD",
-    "description": "Part-time 4WD with Low Range Transfer Case"
-  },
+  "drivetrain": "AllGrip Pro 4WD",
   "mileage": {
     "mt": "16.39 kmpl",
     "at": "16.94 kmpl",
@@ -31,25 +31,52 @@
     "esp": true,
     "hill_hold": true,
     "isofix": true,
-    "camera": "Rear View"
+    "camera": "Rear View",
+    "ebd": true,
+    "hill_descent_control": true,
+    "traction_control": false,
+    "adas": false,
+    "reverse_parking_sensors": false,
+    "seat_belt_reminder": true,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Manual",
     "cruise_control": true,
-    "auto_headlamps": true
+    "auto_headlamps": true,
+    "keyless_entry": false,
+    "push_button_start": false,
+    "head_up_display": false,
+    "ventilated_seats": false,
+    "leather_seats": false,
+    "powered_seats": false,
+    "power_windows": true,
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "android_auto": true,
     "apple_carplay": true,
-    "speakers": "ARKAMYS"
+    "speakers": "ARKAMYS",
+    "touchscreen": "9-inch SmartPlay Pro+",
+    "bluetooth": false,
+    "wireless_charger": false,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "195/80 R15",
     "alloy_wheels": "15-inch Gunmetal"
   },
   "variants": {
-    "MT": ["ZETA MT", "ALPHA MT"],
-    "AT": ["ZETA AT", "ALPHA AT"]
+    "MT": [
+      "ZETA MT",
+      "ALPHA MT"
+    ],
+    "AT": [
+      "ZETA AT",
+      "ALPHA AT"
+    ]
   },
   "variant_features": {
     "ZETA MT": {
@@ -88,5 +115,11 @@
       "off_road_features": "Low Range Transfer Case",
       "roof_rails": true
     }
+  },
+  "exterior": {
+    "led_headlamps": true,
+    "led_drls": false,
+    "fog_lamps": true,
+    "roof_rails": false
   }
 }

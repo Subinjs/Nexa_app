@@ -16,7 +16,9 @@
     "description": "Self-Charging Hybrid with EV Mode"
   },
   "transmission": {
-    "options": ["e-CVT"],
+    "options": [
+      "e-CVT"
+    ],
     "description": "e-CVT (Electronic Continuously Variable)"
   },
   "mileage": {
@@ -27,41 +29,59 @@
   "seating": "7/8 Seater MPV",
   "segment": "Premium MPV",
   "variants": {
-    "ZETA+": ["ZETA+ 7 STR", "ZETA+ 8 STR"],
-    "ALPHA+": ["ALPHA+ 7 STR", "ALPHA+ 8 STR"]
+    "ZETA+": [
+      "ZETA+ 7 STR",
+      "ZETA+ 8 STR"
+    ],
+    "ALPHA+": [
+      "ALPHA+ 7 STR",
+      "ALPHA+ 8 STR"
+    ]
   },
   "safety_features": {
     "airbags": "7 Airbags",
-    "abs": true,
-    "ebd": true,
-    "esp": true,
-    "hill_hold": true,
-    "isofix": true,
+    "abs": false,
+    "ebd": false,
+    "esp": false,
+    "hill_hold": false,
+    "isofix": false,
     "parking_sensors": "Front & Rear",
     "camera": "360 Degree View",
-    "adas": "Level 2 ADAS"
+    "adas": false,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "reverse_parking_sensors": false,
+    "seat_belt_reminder": false,
+    "impact_sensing": false
   },
   "comfort_features": {
-    "climate_control": "3-Zone Automatic",
-    "cruise_control": "Adaptive",
-    "keyless_entry": true,
-    "push_button_start": true,
+    "climate_control": "Manual",
+    "cruise_control": false,
+    "keyless_entry": false,
+    "push_button_start": false,
     "power_windows": "All with Auto Up/Down",
     "steering_adjustment": "Tilt & Telescopic",
     "rear_ac_vents": true,
     "ottoman_seats": "Second Row (7-Seater)",
-    "powered_seats": "Driver & Co-driver"
+    "powered_seats": false,
+    "head_up_display": false,
+    "auto_headlamps": false,
+    "ventilated_seats": false,
+    "leather_seats": false,
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "touchscreen": "10.1-inch HD Display",
-    "android_auto": true,
-    "apple_carplay": true,
+    "android_auto": false,
+    "apple_carplay": false,
     "speakers": "JBL Premium (9 Speakers)",
     "connected_features": "Suzuki Connect Premium",
-    "wireless_charger": true,
-    "bluetooth": true,
+    "wireless_charger": false,
+    "bluetooth": false,
     "usb_ports": "4",
-    "rear_entertainment": "Available"
+    "rear_entertainment": false,
+    "navigation": false
   },
   "wheels": {
     "tyre_size": "215/60 R17",
@@ -124,5 +144,11 @@
       "leather_seats": "Premium Leather",
       "rear_entertainment": "Dual Screens"
     }
+  },
+  "exterior": {
+    "led_headlamps": false,
+    "led_drls": false,
+    "fog_lamps": false,
+    "roof_rails": false
   }
 }

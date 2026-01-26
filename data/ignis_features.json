@@ -11,7 +11,10 @@
     "torque_text": "113Nm @ 4200 rpm"
   },
   "transmission": {
-    "options": ["5MT", "5AMT"],
+    "options": [
+      "5MT",
+      "5AMT"
+    ],
     "description": "5-Speed Manual / 5-Speed AMT"
   },
   "mileage": {
@@ -21,17 +24,30 @@
   },
   "fuel_type": "Petrol",
   "variants": {
-    "MT": ["SIGMA", "DELTA", "ZETA"],
-    "AMT": ["DELTA AMT", "ZETA AMT", "ALPHA AMT"]
+    "MT": [
+      "SIGMA",
+      "DELTA",
+      "ZETA"
+    ],
+    "AMT": [
+      "DELTA AMT",
+      "ZETA AMT",
+      "ALPHA AMT"
+    ]
   },
   "safety_features": {
     "airbags": "2 Airbags",
-    "abs": true,
-    "ebd": true,
+    "abs": false,
+    "ebd": false,
     "esp": false,
-    "isofix": true,
-    "reverse_parking_sensors": true,
-    "seat_belt_reminder": true
+    "isofix": false,
+    "reverse_parking_sensors": false,
+    "seat_belt_reminder": false,
+    "hill_hold": false,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "adas": false,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Manual",
@@ -39,15 +55,26 @@
     "push_button_start": false,
     "power_windows": "All 4",
     "steering_adjustment": "Tilt",
-    "rear_ac_vents": false
+    "rear_ac_vents": false,
+    "cruise_control": false,
+    "head_up_display": false,
+    "auto_headlamps": false,
+    "ventilated_seats": false,
+    "leather_seats": false,
+    "powered_seats": false,
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "touchscreen": "7-inch SmartPlay Studio",
-    "android_auto": true,
-    "apple_carplay": true,
+    "android_auto": false,
+    "apple_carplay": false,
     "speakers": "4 Speakers",
-    "bluetooth": true,
-    "usb_ports": "1"
+    "bluetooth": false,
+    "usb_ports": "1",
+    "wireless_charger": false,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "175/60 R15",
@@ -102,5 +129,11 @@
       "auto_headlamps": true,
       "transmission": "5-Speed AMT"
     }
+  },
+  "exterior": {
+    "led_headlamps": false,
+    "led_drls": false,
+    "fog_lamps": false,
+    "roof_rails": false
   }
 }

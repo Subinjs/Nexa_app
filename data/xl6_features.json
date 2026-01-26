@@ -17,7 +17,10 @@
     "torque_text": "121.5Nm (CNG)"
   },
   "transmission": {
-    "options": ["5MT", "6AT"],
+    "options": [
+      "5MT",
+      "6AT"
+    ],
     "description": "5-Speed Manual / 6-Speed AT"
   },
   "mileage": {
@@ -35,28 +38,60 @@
     "hill_hold": true,
     "isofix": true,
     "parking_sensors": "Rear",
-    "camera": "360 Degree"
+    "camera": "360 Degree",
+    "ebd": true,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "adas": false,
+    "reverse_parking_sensors": true,
+    "seat_belt_reminder": true,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Manual",
     "cruise_control": true,
     "auto_headlamps": true,
-    "ventilated_seats": true
+    "ventilated_seats": true,
+    "keyless_entry": false,
+    "push_button_start": false,
+    "head_up_display": false,
+    "leather_seats": false,
+    "powered_seats": false,
+    "power_windows": true,
+    "steering_adjustment": "Tilt & Telescopic",
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "android_auto": true,
     "apple_carplay": true,
-    "speakers": "Arkamys",
-    "connected_features": "Suzuki Connect"
+    "speakers": "ARKAMYS",
+    "connected_features": "Suzuki Connect",
+    "touchscreen": "7-inch SmartPlay Studio",
+    "bluetooth": true,
+    "wireless_charger": false,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "195/60 R16",
-    "alloy_wheels": "16-inch Diamond-Cut"
+    "alloy_wheels": true
   },
   "variants": {
-    "MT": ["ZETA MT", "ALPHA MT", "ALPHA+ MT"],
-    "AT": ["ZETA AT", "ALPHA AT", "ALPHA+ AT"],
-    "CNG": ["ZETA CNG", "ALPHA CNG"]
+    "MT": [
+      "ZETA MT",
+      "ALPHA MT",
+      "ALPHA+ MT"
+    ],
+    "AT": [
+      "ZETA AT",
+      "ALPHA AT",
+      "ALPHA+ AT"
+    ],
+    "CNG": [
+      "ZETA CNG",
+      "ALPHA CNG"
+    ]
   },
   "variant_features": {
     "ZETA MT": {
@@ -109,5 +144,12 @@
       "seating": "6-Seater Captain Seats",
       "wireless_charger": false
     }
-  }
+  },
+  "exterior": {
+    "led_headlamps": false,
+    "led_drls": true,
+    "fog_lamps": true,
+    "roof_rails": false
+  },
+  "hybrid": "Mild Hybrid"
 }

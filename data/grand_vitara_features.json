@@ -10,12 +10,13 @@
     "torque_rpm": 4400,
     "torque_text": "137-139Nm @ 4300-4400 rpm"
   },
-  "hybrid": {
-    "type": "Mild Hybrid + Strong Hybrid (e-CVT)",
-    "description": "Intelligent Electric Hybrid with Regenerative Braking"
-  },
+  "hybrid": "Strong Hybrid (Self-Charging)",
   "transmission": {
-    "options": ["5MT", "6AT", "e-CVT"],
+    "options": [
+      "5MT",
+      "6AT",
+      "e-CVT"
+    ],
     "description": "5-Speed Manual / 6-Speed AT / e-CVT (Hybrid)"
   },
   "mileage": {
@@ -31,15 +32,32 @@
     "esp": true,
     "isofix": true,
     "parking_sensors": "Rear",
-    "camera": "360 Degree"
+    "camera": "360 Degree",
+    "ebd": true,
+    "hill_hold": false,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "adas": false,
+    "reverse_parking_sensors": false,
+    "seat_belt_reminder": true,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Manual",
     "cruise_control": true,
     "head_up_display": true,
     "auto_headlamps": true,
-    "sunroof": true,
-    "ventilated_seats": true
+    "sunroof": "Electric Panoramic",
+    "ventilated_seats": true,
+    "ac_vents": "Front & Rear",
+    "keyless_entry": true,
+    "push_button_start": false,
+    "leather_seats": false,
+    "powered_seats": false,
+    "power_windows": true,
+    "steering_adjustment": "Tilt & Telescopic",
+    "powered_tailgate": false,
+    "ambient_lighting": true
   },
   "technology": {
     "touchscreen": "9-inch SmartPlay Pro+",
@@ -48,12 +66,15 @@
     "speakers": "ARKAMYS Premium (6 Speakers)",
     "connected_features": "Suzuki Connect",
     "wireless_charging": true,
-    "bluetooth": true,
-    "usb_ports": "2"
+    "bluetooth": false,
+    "usb_ports": "2",
+    "wireless_charger": true,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "215/60 R17",
-    "alloy_wheels": "17-inch Diamond-Cut"
+    "alloy_wheels": true
   },
   "variant_features": {
     "SIGMA": {
@@ -162,5 +183,12 @@
       "ev_mode": true,
       "adas": "Level 2 ADAS Features"
     }
-  }
+  },
+  "exterior": {
+    "led_headlamps": false,
+    "led_drls": true,
+    "fog_lamps": false,
+    "roof_rails": true
+  },
+  "drivetrain": "4WD"
 }

@@ -1,0 +1,405 @@
+{
+  "Baleno": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": false,
+      "ebd": false,
+      "esp": true,
+      "hill_hold": true,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": true,
+      "adas": false,
+      "camera": "360 Degree",
+      "reverse_parking_sensors": true,
+      "seat_belt_reminder": true,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "ac_vents": "Front & Rear",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": false,
+      "head_up_display": true,
+      "auto_headlamps": true,
+      "ventilated_seats": false,
+      "leather_seats": false,
+      "powered_seats": false,
+      "power_windows": true,
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "android_auto": true,
+      "apple_carplay": true,
+      "bluetooth": false,
+      "wireless_charger": false,
+      "connected_features": "Suzuki Connect",
+      "speakers": "ARKAMYS",
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "wheels": {
+      "tyre_size": "185/65 R15",
+      "alloy_wheels": true
+    },
+    "exterior": {
+      "led_headlamps": true,
+      "led_drls": true,
+      "fog_lamps": true,
+      "roof_rails": false
+    }
+  },
+  "Fronx": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": true,
+      "adas": false,
+      "camera": "360 Degree",
+      "reverse_parking_sensors": true,
+      "seat_belt_reminder": true,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Automatic",
+      "ac_vents": "Front & Rear",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": false,
+      "head_up_display": true,
+      "auto_headlamps": true,
+      "ventilated_seats": false,
+      "leather_seats": false,
+      "powered_seats": false,
+      "seating": "8-Seater",
+      "power_windows": true,
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "android_auto": true,
+      "apple_carplay": true,
+      "bluetooth": true,
+      "wireless_charger": true,
+      "connected_features": "Suzuki Connect",
+      "speakers": "ARKAMYS",
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "wheels": {
+      "tyre_size": "195/60 R16",
+      "alloy_wheels": true
+    },
+    "exterior": {
+      "led_headlamps": false,
+      "led_drls": true,
+      "fog_lamps": false,
+      "roof_rails": false
+    },
+    "hybrid": "Mild Hybrid"
+  },
+  "Grand Vitara": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "ebd": true,
+      "esp": true,
+      "hill_hold": false,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": true,
+      "adas": false,
+      "camera": "360 Degree",
+      "parking_sensors": "Rear",
+      "reverse_parking_sensors": false,
+      "seat_belt_reminder": true,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "ac_vents": "Front & Rear",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": false,
+      "head_up_display": true,
+      "auto_headlamps": true,
+      "sunroof": "Electric Panoramic",
+      "ventilated_seats": true,
+      "leather_seats": false,
+      "powered_seats": false,
+      "power_windows": true,
+      "steering_adjustment": "Tilt & Telescopic",
+      "powered_tailgate": false,
+      "ambient_lighting": true
+    },
+    "technology": {
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "android_auto": true,
+      "apple_carplay": true,
+      "bluetooth": false,
+      "wireless_charger": true,
+      "connected_features": "Suzuki Connect",
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "wheels": {
+      "alloy_wheels": true
+    },
+    "exterior": {
+      "led_headlamps": false,
+      "led_drls": true,
+      "fog_lamps": false,
+      "roof_rails": true
+    },
+    "drivetrain": "4WD",
+    "hybrid": "Strong Hybrid (Self-Charging)"
+  },
+  "Ignis": {
+    "safety_features": {
+      "abs": false,
+      "ebd": false,
+      "esp": false,
+      "hill_hold": false,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": false,
+      "adas": false,
+      "reverse_parking_sensors": false,
+      "seat_belt_reminder": false,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": false,
+      "keyless_entry": false,
+      "push_button_start": false,
+      "head_up_display": false,
+      "auto_headlamps": false,
+      "ventilated_seats": false,
+      "leather_seats": false,
+      "powered_seats": false,
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "android_auto": false,
+      "apple_carplay": false,
+      "bluetooth": false,
+      "wireless_charger": false,
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "exterior": {
+      "led_headlamps": false,
+      "led_drls": false,
+      "fog_lamps": false,
+      "roof_rails": false
+    }
+  },
+  "Invicto": {
+    "safety_features": {
+      "abs": false,
+      "ebd": false,
+      "esp": false,
+      "hill_hold": false,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": false,
+      "adas": false,
+      "reverse_parking_sensors": false,
+      "seat_belt_reminder": false,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": false,
+      "keyless_entry": false,
+      "push_button_start": false,
+      "head_up_display": false,
+      "auto_headlamps": false,
+      "ventilated_seats": false,
+      "leather_seats": false,
+      "powered_seats": false,
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "android_auto": false,
+      "apple_carplay": false,
+      "bluetooth": false,
+      "wireless_charger": false,
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "exterior": {
+      "led_headlamps": false,
+      "led_drls": false,
+      "fog_lamps": false,
+      "roof_rails": false
+    }
+  },
+  "Jimny": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "hill_descent_control": true,
+      "traction_control": false,
+      "isofix": true,
+      "adas": false,
+      "camera": "Rear View",
+      "reverse_parking_sensors": false,
+      "seat_belt_reminder": true,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "keyless_entry": false,
+      "push_button_start": false,
+      "head_up_display": false,
+      "auto_headlamps": true,
+      "ventilated_seats": false,
+      "leather_seats": false,
+      "powered_seats": false,
+      "power_windows": true,
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "touchscreen": "9-inch SmartPlay Pro+",
+      "android_auto": true,
+      "apple_carplay": true,
+      "bluetooth": false,
+      "wireless_charger": false,
+      "speakers": "ARKAMYS",
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "wheels": {
+      "tyre_size": "195/80 R15"
+    },
+    "exterior": {
+      "led_headlamps": true,
+      "led_drls": false,
+      "fog_lamps": true,
+      "roof_rails": false
+    },
+    "drivetrain": "AllGrip Pro 4WD"
+  },
+  "XL6": {
+    "safety_features": {
+      "airbags": "6 Airbags",
+      "abs": true,
+      "ebd": true,
+      "esp": true,
+      "hill_hold": true,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": true,
+      "adas": false,
+      "camera": "360 Degree",
+      "reverse_parking_sensors": true,
+      "seat_belt_reminder": true,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "cruise_control": true,
+      "keyless_entry": false,
+      "push_button_start": false,
+      "head_up_display": false,
+      "auto_headlamps": true,
+      "ventilated_seats": true,
+      "leather_seats": false,
+      "powered_seats": false,
+      "power_windows": true,
+      "steering_adjustment": "Tilt & Telescopic",
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "touchscreen": "7-inch SmartPlay Studio",
+      "android_auto": true,
+      "apple_carplay": true,
+      "bluetooth": true,
+      "wireless_charger": false,
+      "connected_features": "Suzuki Connect",
+      "speakers": "ARKAMYS",
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "wheels": {
+      "tyre_size": "195/60 R16",
+      "alloy_wheels": true
+    },
+    "exterior": {
+      "led_headlamps": false,
+      "led_drls": true,
+      "fog_lamps": true,
+      "roof_rails": false
+    },
+    "hybrid": "Mild Hybrid"
+  },
+  "Ciaz": {
+    "safety_features": {
+      "abs": false,
+      "ebd": false,
+      "esp": true,
+      "hill_hold": false,
+      "hill_descent_control": false,
+      "traction_control": false,
+      "isofix": true,
+      "adas": false,
+      "reverse_parking_sensors": true,
+      "seat_belt_reminder": true,
+      "impact_sensing": false
+    },
+    "comfort_features": {
+      "climate_control": "Manual",
+      "ac_vents": "Front & Rear",
+      "cruise_control": true,
+      "keyless_entry": true,
+      "push_button_start": false,
+      "head_up_display": false,
+      "auto_headlamps": true,
+      "ventilated_seats": false,
+      "leather_seats": true,
+      "powered_seats": false,
+      "power_windows": true,
+      "steering_adjustment": "Tilt",
+      "powered_tailgate": false,
+      "ambient_lighting": false
+    },
+    "technology": {
+      "android_auto": true,
+      "apple_carplay": true,
+      "bluetooth": true,
+      "wireless_charger": false,
+      "navigation": false,
+      "rear_entertainment": false
+    },
+    "wheels": {
+      "tyre_size": "185/65 R15",
+      "alloy_wheels": true
+    },
+    "exterior": {
+      "led_headlamps": true,
+      "led_drls": true,
+      "fog_lamps": true,
+      "roof_rails": false
+    },
+    "hybrid": "Mild Hybrid"
+  }
+}

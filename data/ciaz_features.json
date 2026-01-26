@@ -11,7 +11,10 @@
     "torque_text": "138Nm @ 4400 rpm"
   },
   "transmission": {
-    "options": ["5MT", "4AT"],
+    "options": [
+      "5MT",
+      "4AT"
+    ],
     "description": "5-Speed Manual / 4-Speed AT"
   },
   "mileage": {
@@ -24,25 +27,56 @@
   "safety_features": {
     "esp": true,
     "isofix": true,
-    "parking_sensors": "Rear"
+    "parking_sensors": "Rear",
+    "abs": false,
+    "ebd": false,
+    "hill_hold": false,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "adas": false,
+    "reverse_parking_sensors": true,
+    "seat_belt_reminder": true,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Manual",
     "cruise_control": true,
     "auto_headlamps": true,
-    "leather_seats": true
+    "leather_seats": true,
+    "ac_vents": "Front & Rear",
+    "keyless_entry": true,
+    "push_button_start": false,
+    "head_up_display": false,
+    "ventilated_seats": false,
+    "powered_seats": false,
+    "power_windows": true,
+    "steering_adjustment": "Tilt",
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "android_auto": true,
-    "apple_carplay": true
+    "apple_carplay": true,
+    "bluetooth": true,
+    "wireless_charger": false,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "185/65 R15",
-    "alloy_wheels": "16-inch Diamond-Cut"
+    "alloy_wheels": true
   },
   "variants": {
-    "MT": ["DELTA MT", "ZETA MT", "ALPHA MT"],
-    "AT": ["DELTA AT", "ZETA AT", "ALPHA AT"]
+    "MT": [
+      "DELTA MT",
+      "ZETA MT",
+      "ALPHA MT"
+    ],
+    "AT": [
+      "DELTA AT",
+      "ZETA AT",
+      "ALPHA AT"
+    ]
   },
   "variant_features": {
     "DELTA MT": {
@@ -88,5 +122,12 @@
       "leather_seats": "Premium Leather",
       "camera": "Rear View"
     }
-  }
+  },
+  "exterior": {
+    "led_headlamps": true,
+    "led_drls": true,
+    "fog_lamps": true,
+    "roof_rails": false
+  },
+  "hybrid": "Mild Hybrid"
 }

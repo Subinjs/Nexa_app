@@ -20,7 +20,11 @@
     "torque_text": "99Nm @ 4300 rpm"
   },
   "transmission": {
-    "options": ["5MT", "5AMT", "6AT"],
+    "options": [
+      "5MT",
+      "5AMT",
+      "6AT"
+    ],
     "description": "5-Speed Manual / 5-Speed AMT / 6-Speed AT (Turbo)"
   },
   "mileage": {
@@ -31,10 +35,26 @@
   },
   "fuel_type": "Petrol / CNG",
   "variants": {
-    "MT": ["SIGMA", "DELTA", "DELTA+", "ZETA"],
-    "AMT": ["DELTA (AMT)", "DELTA+ (AMT)", "ZETA (AMT)"],
-    "Turbo": ["ALPHA TURBO", "ALPHA+ TURBO"],
-    "CNG": ["SIGMA CNG", "DELTA CNG", "DELTA+ CNG"]
+    "MT": [
+      "SIGMA",
+      "DELTA",
+      "DELTA+",
+      "ZETA"
+    ],
+    "AMT": [
+      "DELTA (AMT)",
+      "DELTA+ (AMT)",
+      "ZETA (AMT)"
+    ],
+    "Turbo": [
+      "ALPHA TURBO",
+      "ALPHA+ TURBO"
+    ],
+    "CNG": [
+      "SIGMA CNG",
+      "DELTA CNG",
+      "DELTA+ CNG"
+    ]
   },
   "safety_features": {
     "airbags": "6 Airbags",
@@ -43,20 +63,42 @@
     "hill_hold": true,
     "isofix": true,
     "parking_sensors": "Rear",
-    "camera": "360 Degree"
+    "camera": "360 Degree",
+    "ebd": true,
+    "hill_descent_control": false,
+    "traction_control": false,
+    "adas": false,
+    "reverse_parking_sensors": true,
+    "seat_belt_reminder": true,
+    "impact_sensing": false
   },
   "comfort_features": {
     "climate_control": "Automatic",
     "cruise_control": true,
     "head_up_display": true,
-    "auto_headlamps": true
+    "auto_headlamps": true,
+    "ac_vents": "Front & Rear",
+    "keyless_entry": true,
+    "push_button_start": false,
+    "ventilated_seats": false,
+    "leather_seats": false,
+    "powered_seats": false,
+    "seating": "8-Seater",
+    "power_windows": true,
+    "powered_tailgate": false,
+    "ambient_lighting": false
   },
   "technology": {
     "android_auto": true,
     "apple_carplay": true,
     "speakers": "ARKAMYS",
     "connected_features": "Suzuki Connect",
-    "wireless_charging": true
+    "wireless_charging": true,
+    "touchscreen": "9-inch SmartPlay Pro+",
+    "bluetooth": true,
+    "wireless_charger": true,
+    "navigation": false,
+    "rear_entertainment": false
   },
   "wheels": {
     "tyre_size": "195/60 R16",
@@ -155,5 +197,12 @@
       "engine": "1.0L Turbo 100PS",
       "fog_lamps": "LED DRL"
     }
-  }
+  },
+  "exterior": {
+    "led_headlamps": false,
+    "led_drls": true,
+    "fog_lamps": false,
+    "roof_rails": false
+  },
+  "hybrid": "Mild Hybrid"
 }
