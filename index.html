@@ -355,40 +355,6 @@ document.getElementById("showBtn").addEventListener("click", () => {
         ${variantFeatures.ev_mode ? '<div style="padding:8px;background:#fef3c7;border-radius:6px">⭐ EV Mode</div>' : ''}
       </div>
     </div>` : ''}`;
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Power</div>
-          <div class="spec-value">${eng.power_text}</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Torque</div>
-          <div class="spec-value">${eng.torque_text}</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Transmission</div>
-          <div class="spec-value">${trans.description}</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Mileage (${mil.type})</div>
-          <div class="spec-value">${mil.mt || mil.hybrid || 'N/A'}</div>
-        </div>
-        ${FEATURES.hybrid ? `
-        <div class="spec-item">
-          <div class="spec-label">Hybrid</div>
-          <div class="spec-value">${FEATURES.hybrid.type}</div>
-        </div>` : ''}
-        ${FEATURES.drivetrain ? `
-        <div class="spec-item">
-          <div class="spec-label">Drivetrain</div>
-          <div class="spec-value">${FEATURES.drivetrain.type}</div>
-        </div>` : ''}
-        ${FEATURES.seating ? `
-        <div class="spec-item">
-          <div class="spec-label">Seating</div>
-          <div class="spec-value">${FEATURES.seating}</div>
-        </div>` : ''}
-      </div>
-    </div>`;
   }
 
   out.innerHTML = `
