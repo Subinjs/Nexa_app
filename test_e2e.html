@@ -143,14 +143,30 @@
     runTests();
         // WhatsApp Share Button Logic
         document.getElementById('shareBtn').onclick = function() {
-            // Find the price calculation result
-            const priceResult = window.testResults?.find(r => r.name === 'Price Calculation' && r.status === 'PASS');
-            let message = 'Nexa Price Details:';
-            if (priceResult) {
-                message += '\n' + priceResult.message.replace(/<[^>]+>/g, '');
-            } else {
-                message += '\nPrice details not available.';
+            // Find the price calculation result and variant details
+            const offersRes = await fetch('data/january_offers.json');
+            const offers = await offersRes.json();
+            const gvRes = await fetch('data/grand_vitara_6_airbag.json');
+            const gvData = await gvRes.json();
+            const testVariant = gvData[0]; // SIGMA variant for test
+            const testOffer = offers.models.grand_vitara.offers.find(o => o.variant_pattern === 'SIGMA');
+            let message = `Nexa Price Details\nModel: Grand Vitara\nVariant: ${testVariant.variant}`;
+            message += `\nEx-Showroom: ₹${testVariant.ex_showroom.toLocaleString("en-IN")}`;
+            message += `\nInsurance: ₹${testVariant.insurance?.toLocaleString("en-IN") || 'N/A'}`;
+            message += `\nRoad Tax: ₹${testVariant.road_tax?.toLocaleString("en-IN") || 'N/A'}`;
+            message += `\nRegistration: ₹${testVariant.registration || 'N/A'}`;
+            message += `\nFastag: ₹${testVariant.fastag || 'N/A'}`;
+            message += `\nNEXA Card: ₹${testVariant.nexa_card || 'N/A'}`;
+            message += `\nExtended Warranty: ₹${testVariant.extended_warranty?.toLocaleString("en-IN") || 'N/A'}`;
+            if (testOffer) {
+                message += `\nConsumer Offer: -₹${testOffer.consumer_offer.toLocaleString("en-IN")}`;
+                message += `\nRetail Support: -₹${testOffer.retail_support.toLocaleString("en-IN")}`;
+                message += `\nExchange Bonus: ₹${testOffer.exchange_bonus.toLocaleString("en-IN")}`;
+                message += `\nCorporate/Rural Offer: ₹${testOffer.corporate_offer.toLocaleString("en-IN")} / ₹${testOffer.rural_offer.toLocaleString("en-IN")}`;
+                const discounted = testVariant.ex_showroom - testOffer.consumer_offer - testOffer.retail_support;
+                message += `\nDiscounted Ex-Showroom: ₹${discounted.toLocaleString("en-IN")}`;
             }
+            message += `\nOn-Road Price: ₹${testVariant.onroad ? testVariant.onroad.toLocaleString("en-IN") : 'To be calculated'}`;
             const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
             window.open(whatsappUrl, '_blank');
         };

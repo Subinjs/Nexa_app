@@ -81,9 +81,19 @@ document.getElementById('waShareBtn').onclick = function() {
   }
   const v = DATA[varSel.value];
   const offer = getOfferForVariant(modelSel.value, v);
-  let message = `Nexa Price Details\nModel: ${MODELS[modelSel.value].name}\nVariant: ${v.variant}\nEx-Showroom: ₹${v.ex_showroom.toLocaleString("en-IN")}`;
+  let message = `Nexa Price Details\nModel: ${MODELS[modelSel.value].name}\nVariant: ${v.variant}`;
+  message += `\nEx-Showroom: ₹${v.ex_showroom.toLocaleString("en-IN")}`;
+  message += `\nInsurance: ₹${v.insurance?.toLocaleString("en-IN") || 'N/A'}`;
+  message += `\nRoad Tax: ₹${v.road_tax?.toLocaleString("en-IN") || 'N/A'}`;
+  message += `\nRegistration: ₹${v.registration || 'N/A'}`;
+  message += `\nFastag: ₹${v.fastag || 'N/A'}`;
+  message += `\nNEXA Card: ₹${v.nexa_card || 'N/A'}`;
+  message += `\nExtended Warranty: ₹${v.extended_warranty?.toLocaleString("en-IN") || 'N/A'}`;
   if (offer) {
-    message += `\nConsumer Offer: -₹${offer.consumer_offer.toLocaleString("en-IN")}\nRetail Support: -₹${offer.retail_support.toLocaleString("en-IN")}\nExchange Bonus: ₹${offer.exchange_bonus.toLocaleString("en-IN")}`;
+    message += `\nConsumer Offer: -₹${offer.consumer_offer.toLocaleString("en-IN")}`;
+    message += `\nRetail Support: -₹${offer.retail_support.toLocaleString("en-IN")}`;
+    message += `\nExchange Bonus: ₹${offer.exchange_bonus.toLocaleString("en-IN")}`;
+    message += `\nCorporate/Rural Offer: ₹${offer.corporate_offer.toLocaleString("en-IN")} / ₹${offer.rural_offer.toLocaleString("en-IN")}`;
     const discounted = v.ex_showroom - offer.consumer_offer - offer.retail_support;
     message += `\nDiscounted Ex-Showroom: ₹${discounted.toLocaleString("en-IN")}`;
   }
