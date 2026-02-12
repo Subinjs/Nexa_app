@@ -61,6 +61,7 @@ th{background:#1e40af;color:#fff;text-align:left}
       <button id="showBtn">Show Price</button>
       <button id="addCompareBtn">Add to Compare</button>
       <button id="compareNowBtn">Compare Now</button>
+      <button id="waShareBtn" style="background:#25d366;color:#fff;">Share via WhatsApp</button>
     </div>
   </div>
 
@@ -72,6 +73,24 @@ th{background:#1e40af;color:#fff;text-align:left}
 </div>
 
 <script>
+// WhatsApp Share Button Logic
+document.getElementById('waShareBtn').onclick = function() {
+  if (varSel.value === "" || !modelSel.value) {
+    alert("Please select a model and variant first");
+    return;
+  }
+  const v = DATA[varSel.value];
+  const offer = getOfferForVariant(modelSel.value, v);
+  let message = `Nexa Price Details\nModel: ${MODELS[modelSel.value].name}\nVariant: ${v.variant}\nEx-Showroom: ₹${v.ex_showroom.toLocaleString("en-IN")}`;
+  if (offer) {
+    message += `\nConsumer Offer: -₹${offer.consumer_offer.toLocaleString("en-IN")}\nRetail Support: -₹${offer.retail_support.toLocaleString("en-IN")}\nExchange Bonus: ₹${offer.exchange_bonus.toLocaleString("en-IN")}`;
+    const discounted = v.ex_showroom - offer.consumer_offer - offer.retail_support;
+    message += `\nDiscounted Ex-Showroom: ₹${discounted.toLocaleString("en-IN")}`;
+  }
+  message += `\nOn-Road Price: ₹${v.onroad ? v.onroad.toLocaleString("en-IN") : 'To be calculated'}`;
+  const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
+  window.open(whatsappUrl, '_blank');
+};
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').catch(()=>{});
 }
