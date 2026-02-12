@@ -5,6 +5,10 @@ Quick script to see what's in your PDF brochure
 
 import fitz  # PyMuPDF
 import sys
+from pathlib import Path
+
+OUTPUT_DIR = Path("extracted")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def extract_pdf_text(pdf_path):
     """Extract and print all text from PDF"""
@@ -23,11 +27,11 @@ def extract_pdf_text(pdf_path):
             print(text)
             
             # Also save to file
-            with open(f"page_{page_num + 1}.txt", 'w', encoding='utf-8') as f:
+            with open(OUTPUT_DIR / f"page_{page_num + 1}.txt", 'w', encoding='utf-8') as f:
                 f.write(text)
         
         doc.close()
-        print(f"\n✅ Text saved to page_*.txt files")
+        print(f"\n✅ Text saved to extracted/page_*.txt files")
         
     except Exception as e:
         print(f"❌ Error: {e}")

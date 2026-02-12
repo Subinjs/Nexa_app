@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>End-to-End Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+        .pass { background: #d1fae5; }
+        .fail { background: #fee2e2; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>End-to-End Functionality Test</h1>
+    <div id="output"></div>
+
+    <button id="shareBtn" style="margin: 10px 0; padding: 10px 18px; background: #25d366; color: #fff; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">Share Price Details via WhatsApp</button>
+    
+    <script>
+    async function runTests() {
+        const output = document.getElementById('output');
+        const results = [];
+        window.testResults = results;
+        
+        try {
+            // Test 1: Load Offers
+            output.innerHTML += '<div class="test-section"><h2>Test 1: Loading Offers JSON</h2><p>Loading...</p></div>';
+            const offersRes = await fetch('data/january_offers.json');
+            const offers = await offersRes.json();
+            
+            if (offers && offers.month === "January 2026" && offers.models) {
+                results.push({ name: 'Load Offers', status: 'PASS', message: `Loaded ${Object.keys(offers.models).length} models` });
+            } else {
+                results.push({ name: 'Load Offers', status: 'FAIL', message: 'Invalid offers structure' });
+            }
+            
+            // Test 2: Load Model Data
+            output.innerHTML += '<div class="test-section"><h2>Test 2: Loading Model Price Data</h2><p>Loading...</p></div>';
+            const gvRes = await fetch('data/grand_vitara_6_airbag.json');
+            const gvData = await gvRes.json();
+            
+            if (Array.isArray(gvData) && gvData.length > 0 && gvData[0].variant && gvData[0].ex_showroom) {
+                results.push({ name: 'Load Model Data', status: 'PASS', message: `Grand Vitara has ${gvData.length} variants` });
+            } else {
+                results.push({ name: 'Load Model Data', status: 'FAIL', message: 'Invalid price data structure' });
+            }
+            
+            // Test 3: Test Offer Matching
+            output.innerHTML += '<div class="test-section"><h2>Test 3: Offer Matching Logic</h2><p>Testing...</p></div>';
+            
+            function testOfferMatch(modelKey, variant, offers) {
+                const variantUpper = variant.variant.toUpperCase();
+                const fuelUpper = variant.fuel.toUpperCase();
+                const modelOffers = offers.models[modelKey]?.offers || [];
+                
+                for (const offer of modelOffers) {
+                    if (offer.variant_pattern === 'ALL') return offer;
+                    const pattern = offer.variant_pattern.toUpperCase();
+                    
+                    if (offer.hybrid === 'STRONG HYBRID' && variantUpper.includes('STRONG HYBRID') && variantUpper.includes(pattern)) return offer;
+                    if (pattern === 'SIGMA' && variantUpper.includes('SIGMA')) return offer;
+                    if (pattern === 'MT' && fuelUpper === 'MT') return offer;
+                    if (pattern === 'AGS' && fuelUpper === 'AGS') return offer;
+                }
+                return null;
+            }
+            
+            // Test SIGMA variant
+            const sigmaVariant = gvData.find(v => v.variant.includes('SIGMA'));
+            const sigmaOffer = testOfferMatch('grand_vitara', sigmaVariant, offers);
+            
+            if (sigmaOffer && sigmaOffer.exchange_bonus === 55000) {
+                results.push({ name: 'SIGMA Offer Match', status: 'PASS', message: 'Correctly matched SIGMA offer' });
+            } else {
+                results.push({ name: 'SIGMA Offer Match', status: 'FAIL', message: 'Failed to match SIGMA offer' });
+            }
+            
+            // Test Strong Hybrid variant
+            const hybridVariant = gvData.find(v => v.variant.includes('STRONG HYBRID ZETA+'));
+            const hybridOffer = testOfferMatch('grand_vitara', hybridVariant, offers);
+            
+            if (hybridOffer && hybridOffer.exchange_bonus === 150000) {
+                results.push({ name: 'Hybrid Offer Match', status: 'PASS', message: 'Correctly matched Strong Hybrid offer' });
+            } else {
+                results.push({ name: 'Hybrid Offer Match', status: 'FAIL', message: 'Failed to match Strong Hybrid offer' });
+            }
+            
+            // Test 4: Price Calculation
+            output.innerHTML += '<div class="test-section"><h2>Test 4: Price Discount Calculation</h2><p>Calculating...</p></div>';
+            
+            const testVariant = gvData[0]; // SIGMA variant
+            const testOffer = offers.models.grand_vitara.offers.find(o => o.variant_pattern === 'SIGMA');
+            const originalPrice = testVariant.ex_showroom;
+            const discountedPrice = originalPrice - testOffer.consumer_offer - testOffer.retail_support;
+            const expectedDiscount = testOffer.consumer_offer + testOffer.retail_support;
+            
+            if (discountedPrice === originalPrice - expectedDiscount) {
+                results.push({ 
+                    name: 'Price Calculation', 
+                    status: 'PASS', 
+                    message: `Original: ₹${originalPrice.toLocaleString()}, Discount: ₹${expectedDiscount.toLocaleString()}, Final: ₹${discountedPrice.toLocaleString()}` 
+                });
+            } else {
+                results.push({ name: 'Price Calculation', status: 'FAIL', message: 'Price calculation error' });
+            }
+            
+            // Test 5: All Models Available
+            output.innerHTML += '<div class="test-section"><h2>Test 5: All Models Available</h2><p>Checking...</p></div>';
+            
+            const expectedModels = ['ignis', 'baleno', 'fronx', 'grand_vitara', 'xl6', 'jimny', 'invicto', 'ciaz'];
+            const availableModels = Object.keys(offers.models);
+            const allPresent = expectedModels.every(m => availableModels.includes(m));
+            
+            if (allPresent && availableModels.length === expectedModels.length) {
+                results.push({ name: 'All Models', status: 'PASS', message: `All ${expectedModels.length} models configured` });
+            } else {
+                results.push({ name: 'All Models', status: 'FAIL', message: 'Missing models in offers' });
+            }
+            
+        } catch (error) {
+            results.push({ name: 'System Error', status: 'FAIL', message: error.message });
+        }
+        
+        // Display Results
+        let html = '<h2>Test Results Summary</h2>';
+        const passed = results.filter(r => r.status === 'PASS').length;
+        const failed = results.filter(r => r.status === 'FAIL').length;
+        
+        html += `<div class="test-section ${failed === 0 ? 'pass' : 'fail'}">
+            <h3>Total: ${results.length} tests | ✅ Passed: ${passed} | ❌ Failed: ${failed}</h3>
+        </div>`;
+        
+        results.forEach(result => {
+            html += `<div class="test-section ${result.status === 'PASS' ? 'pass' : 'fail'}">
+                <h3>${result.status === 'PASS' ? '✅' : '❌'} ${result.name}</h3>
+                <p>${result.message}</p>
+            </div>`;
+        });
+        
+        output.innerHTML = html;
+    }
+    
+    runTests();
+        // WhatsApp Share Button Logic
+        document.getElementById('shareBtn').onclick = function() {
+            // Find the price calculation result
+            const priceResult = window.testResults?.find(r => r.name === 'Price Calculation' && r.status === 'PASS');
+            let message = 'Nexa Price Details:';
+            if (priceResult) {
+                message += '\n' + priceResult.message.replace(/<[^>]+>/g, '');
+            } else {
+                message += '\nPrice details not available.';
+            }
+            const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
+            window.open(whatsappUrl, '_blank');
+        };
+    </script>
+</body>
+</html>

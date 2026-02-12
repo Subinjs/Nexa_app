@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Offer Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .model-section { margin: 20px 0; border: 1px solid #ccc; padding: 15px; border-radius: 8px; }
+        .variant-test { padding: 8px; margin: 4px 0; background: #f5f5f5; border-radius: 4px; }
+        .match { background: #d1fae5; }
+        .no-match { background: #fee2e2; }
+        h2 { color: #1d4ed8; }
+        h3 { color: #059669; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Testing Offer Matching for All Models</h1>
+    <div id="output"></div>
+    
+    <script>
+    // Copy the getOfferForVariant function from index.html
+    function getOfferForVariant(modelKey, variant, OFFERS) {
+      if (!OFFERS || !OFFERS.models[modelKey]) return null;
+      
+      const offers = OFFERS.models[modelKey].offers;
+      const variantUpper = variant.variant.toUpperCase();
+      const fuelUpper = variant.fuel.toUpperCase();
+      
+      for (const offer of offers) {
+        if (offer.variant_pattern === 'ALL') return offer;
+        
+        const pattern = offer.variant_pattern.toUpperCase();
+        
+        if (offer.hybrid && offer.hybrid === 'STRONG HYBRID') {
+          if (variantUpper.includes('STRONG HYBRID') && variantUpper.includes(pattern)) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (offer.drivetrain && offer.drivetrain === '4WD') {
+          if (variantUpper.includes('4WD') && variantUpper.includes(pattern)) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (pattern === 'CNG') {
+          if (variantUpper.includes('CNG') || fuelUpper.includes('CNG')) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (pattern === 'TURBO') {
+          if (variantUpper.includes('TURBO') || variantUpper.includes('1.0')) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (pattern === '1.2') {
+          if (variantUpper.includes('1.2')) {
+            if (offer.transmission) {
+              if (fuelUpper.includes(offer.transmission) || variantUpper.includes(offer.transmission)) {
+                return offer;
+              }
+            } else {
+              return offer;
+            }
+          }
+          continue;
+        }
+        
+        if (pattern === 'AUTOMATIC' || pattern === 'AT' || pattern === 'AGS' || pattern === 'AMT') {
+          if (variantUpper.includes('AUTOMATIC') || fuelUpper.includes('AT') || fuelUpper === 'AT' || 
+              fuelUpper === 'AGS' || variantUpper.includes('AGS') ||
+              fuelUpper === 'AMT' || variantUpper.includes('AMT')) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (pattern === 'MT') {
+          if (fuelUpper === 'MT' || variantUpper.includes('5MT') || variantUpper.includes(' MT')) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (pattern === 'PETROL' && offer.transmission === 'MT') {
+          if (variantUpper.includes('PETROL') && fuelUpper === 'MT' && !variantUpper.includes('CNG') && !variantUpper.includes('AUTOMATIC')) {
+            return offer;
+          }
+          continue;
+        }
+        
+        if (variantUpper.includes(pattern)) {
+          if (offer.transmission) {
+            if (fuelUpper.includes(offer.transmission) || variantUpper.includes(offer.transmission)) {
+              return offer;
+            }
+            continue;
+          }
+          
+          if (offer.fuel) {
+            if (fuelUpper.includes(offer.fuel)) {
+              return offer;
+            }
+            continue;
+          }
+          
+          return offer;
+        }
+      }
+      
+      return null;
+    }
+    
+    async function testOffers() {
+        const output = document.getElementById('output');
+        
+        try {
+            const offersRes = await fetch('data/january_offers.json');
+            const OFFERS = await offersRes.json();
+            
+            const models = {
+                'ignis': 'ignis.json',
+                'baleno': 'baleno_6_airbag.json',
+                'fronx': 'new_fronx_6_airbag.json',
+                'grand_vitara': 'grand_vitara_6_airbag.json',
+                'xl6': 'new_xl6_6_airbag.json',
+                'jimny': 'jimny.json',
+                'invicto': 'invicto.json',
+                'ciaz': 'ciaz.json'
+            };
+            
+            for (const [modelKey, fileName] of Object.entries(models)) {
+                const res = await fetch('data/' + fileName);
+                const variants = await res.json();
+                
+                let html = `<div class="model-section">
+                    <h2>${modelKey.toUpperCase()}</h2>
+                    <p>Total Variants: ${variants.length}</p>`;
+                
+                let matchCount = 0;
+                let noMatchCount = 0;
+                
+                variants.slice(0, 10).forEach(variant => {
+                    const offer = getOfferForVariant(modelKey, variant, OFFERS);
+                    const matchClass = offer ? 'match' : 'no-match';
+                    
+                    if (offer) matchCount++;
+                    else noMatchCount++;
+                    
+                    html += `<div class="variant-test ${matchClass}">
+                        <strong>${variant.variant}</strong> (${variant.fuel}) - 
+                        ${offer ? 
+                            `✓ Consumer: ₹${offer.consumer_offer.toLocaleString()}, Retail: ₹${offer.retail_support.toLocaleString()}, Exchange: ₹${offer.exchange_bonus.toLocaleString()}` : 
+                            '✗ No offer matched'}
+                    </div>`;
+                });
+                
+                if (variants.length > 10) {
+                    html += `<p><em>... and ${variants.length - 10} more variants</em></p>`;
+                }
+                
+                html += `<h3>Summary: ${matchCount} matched, ${noMatchCount} no match (showing first 10)</h3>`;
+                html += `</div>`;
+                
+                output.innerHTML += html;
+            }
+            
+        } catch (error) {
+            output.innerHTML = '<p style="color:red">Error: ' + error.message + '</p>';
+            console.error('Full error:', error);
+        }
+    }
+    
+    testOffers();
+    </script>
+</body>
+</html>

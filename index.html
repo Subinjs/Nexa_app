@@ -45,7 +45,7 @@ th{background:#1e40af;color:#fff;text-align:left}
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;">
   <div>
     <h1>🚗 NEXA Price Explorer</h1>
-    <p>Free • Installable • Compare Ready</p>
+    <p>Free • Installable • Compare Ready • <span style="color:#fbbf24;">January 2026 Offers Active</span></p>
   </div>
 </div>
 </header>
@@ -68,6 +68,7 @@ th{background:#1e40af;color:#fff;text-align:left}
   <div id="out"></div>
   <div id="compareOut" class="compare-panel"></div>
   <p class="note small">Tip: select a model, choose a variant, then "Add to Compare". You can compare variants across different models. Lowest costs are highlighted in green.</p>
+  <p class="note small" style="color:#059669;font-weight:600;">🎉 January 2026 Offers Applied! Consumer offers and retail support are automatically deducted from prices.</p>
 </div>
 
 <script>
@@ -125,6 +126,133 @@ const MODELS = {
 
 let DATA = [];
 let FEATURES = null;
+let OFFERS = null;
+
+// Load January offers
+async function loadOffers() {
+  try {
+    const res = await fetch('data/january_offers.json');
+    OFFERS = await res.json();
+  } catch (e) {
+    console.error('Failed to load offers:', e);
+  }
+}
+loadOffers();
+
+// Function to match variant to offer
+function getOfferForVariant(modelKey, variant) {
+  if (!OFFERS || !OFFERS.models[modelKey]) return null;
+  
+  const offers = OFFERS.models[modelKey].offers;
+  const variantUpper = variant.variant.toUpperCase();
+  const fuelUpper = variant.fuel.toUpperCase();
+  
+  // Find the best matching offer
+  for (const offer of offers) {
+    // Check if variant pattern matches
+    if (offer.variant_pattern === 'ALL') return offer;
+    
+    // For specific variant patterns
+    const pattern = offer.variant_pattern.toUpperCase();
+    
+    // Check for Strong Hybrid variants
+    if (offer.hybrid && offer.hybrid === 'STRONG HYBRID') {
+      if (variantUpper.includes('STRONG HYBRID') && variantUpper.includes(pattern)) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for 4WD variants
+    if (offer.drivetrain && offer.drivetrain === '4WD') {
+      if (variantUpper.includes('4WD') && variantUpper.includes(pattern)) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for CNG variants
+    if (pattern === 'CNG') {
+      if (variantUpper.includes('CNG') || fuelUpper.includes('CNG')) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for Turbo variants (Fronx)
+    if (pattern === 'TURBO') {
+      if (variantUpper.includes('TURBO') || variantUpper.includes('1.0')) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for 1.2L variants (Fronx)
+    if (pattern === '1.2') {
+      if (variantUpper.includes('1.2')) {
+        // Check transmission if specified
+        if (offer.transmission) {
+          if (fuelUpper.includes(offer.transmission) || variantUpper.includes(offer.transmission)) {
+            return offer;
+          }
+        } else {
+          return offer;
+        }
+      }
+      continue;
+    }
+    
+    // Check for Automatic/AT/AGS/AMT variants
+    if (pattern === 'AUTOMATIC' || pattern === 'AT' || pattern === 'AGS' || pattern === 'AMT') {
+      if (variantUpper.includes('AUTOMATIC') || fuelUpper.includes('AT') || fuelUpper === 'AT' || 
+          fuelUpper === 'AGS' || variantUpper.includes('AGS') ||
+          fuelUpper === 'AMT' || variantUpper.includes('AMT')) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for MT variants
+    if (pattern === 'MT') {
+      if (fuelUpper === 'MT' || variantUpper.includes('5MT') || variantUpper.includes(' MT')) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for Petrol MT variants (need to exclude CNG and Automatic)
+    if (pattern === 'PETROL' && offer.transmission === 'MT') {
+      if (variantUpper.includes('PETROL') && fuelUpper === 'MT' && !variantUpper.includes('CNG') && !variantUpper.includes('AUTOMATIC')) {
+        return offer;
+      }
+      continue;
+    }
+    
+    // Check for standard variants (SIGMA, DELTA, ZETA, ALPHA)
+    if (variantUpper.includes(pattern)) {
+      // For transmission-specific offers
+      if (offer.transmission) {
+        if (fuelUpper.includes(offer.transmission) || variantUpper.includes(offer.transmission)) {
+          return offer;
+        }
+        continue;
+      }
+      
+      // For fuel-specific offers
+      if (offer.fuel) {
+        if (fuelUpper.includes(offer.fuel)) {
+          return offer;
+        }
+        continue;
+      }
+      
+      // Default match
+      return offer;
+    }
+  }
+  
+  return null;
+}
 
 // Populate model dropdown
 Object.keys(MODELS).forEach(key => {
@@ -178,10 +306,23 @@ document.getElementById("showBtn").addEventListener("click", () => {
   if (varSel.value === "") return;
 
   const v = DATA[varSel.value];
+  
+  // Get offer for this variant
+  const offer = getOfferForVariant(modelSel.value, v);
+  
+  // Calculate discounted ex-showroom price
+  const discountedExShowroom = offer 
+    ? v.ex_showroom - offer.consumer_offer - offer.retail_support
+    : v.ex_showroom;
+  
+  // Calculate discounted on-road price
+  let discountedOnroad = v.onroad;
+  if (offer && v.onroad > 0) {
+    discountedOnroad = v.onroad - offer.consumer_offer - offer.retail_support;
+  }
 
-  const onroad =
-    v.onroad && v.onroad > 0
-      ? `₹${v.onroad.toLocaleString("en-IN")}`
+  const onroad = discountedOnroad && discountedOnroad > 0
+      ? `₹${discountedOnroad.toLocaleString("en-IN")}`
       : "To be calculated";
 
   let specsHTML = '';
@@ -363,6 +504,11 @@ document.getElementById("showBtn").addEventListener("click", () => {
     <tr><th>Variant</th><td>${v.variant}</td></tr>
     <tr><th>Fuel / Gear</th><td>${v.fuel}</td></tr>
     <tr><th>Ex-Showroom</th><td>₹${v.ex_showroom.toLocaleString("en-IN")}</td></tr>
+    ${offer ? `
+    <tr style="background:#fef3c7"><th>Consumer Offer</th><td>- ₹${offer.consumer_offer.toLocaleString("en-IN")}</td></tr>
+    <tr style="background:#fef3c7"><th>Retail Support</th><td>- ₹${offer.retail_support.toLocaleString("en-IN")}</td></tr>
+    <tr style="background:#d1fae5;font-weight:700"><th>Discounted Ex-Showroom</th><td>₹${discountedExShowroom.toLocaleString("en-IN")}</td></tr>
+    ` : ''}
     <tr><th>Insurance</th><td>₹${v.insurance.toLocaleString("en-IN")}</td></tr>
     <tr><th>Road Tax</th><td>₹${v.road_tax.toLocaleString("en-IN")}</td></tr>
     <tr><th>Registration</th><td>₹${v.registration}</td></tr>
@@ -372,6 +518,10 @@ document.getElementById("showBtn").addEventListener("click", () => {
     <tr><th>NEXA Card</th><td>₹${v.nexa_card}</td></tr>
     ${v.tcs > 0 ? `<tr><th>TCS</th><td>₹${v.tcs.toLocaleString("en-IN")}</td></tr>` : ""}
     <tr class="onroad"><th>On-Road Price</th><td>${onroad}</td></tr>
+    ${offer ? `
+    <tr style="background:#e0f2fe"><th>Exchange Bonus</th><td>₹${offer.exchange_bonus.toLocaleString("en-IN")}</td></tr>
+    <tr style="background:#e0f2fe"><th>Corporate/Rural Offer</th><td>₹${offer.corporate_offer.toLocaleString("en-IN")} / ₹${offer.rural_offer.toLocaleString("en-IN")}</td></tr>
+    ` : ''}
   </table>
   `;
 });
@@ -466,6 +616,15 @@ document.getElementById("compareNowBtn").addEventListener("click", async () => {
     const isBest = minValues[field] > 0 && value === minValues[field];
     return `<td class="${isBest ? 'best' : ''}">${formatted}</td>`;
   };
+  
+  // Get offers for all variants in comparison
+  const offersMap = {};
+  compareList.forEach(item => {
+    offersMap[item.modelKey + '_' + item.variant.variant] = getOfferForVariant(item.modelKey, item.variant);
+  });
+  
+  // Check if any variant has offers
+  const hasAnyOffers = Object.values(offersMap).some(offer => offer !== null);
 
   let tableHTML = `<table>
     <thead>
@@ -476,7 +635,27 @@ document.getElementById("compareNowBtn").addEventListener("click", async () => {
     </thead>
     <tbody>
       <tr><th>Fuel / Gear</th>${compareList.map(item => `<td>${item.variant.fuel}</td>`).join("")}</tr>
-      <tr><th>Ex-Showroom</th>${compareList.map(item => formatCell(item.variant.ex_showroom, 'ex_showroom')).join("")}</tr>
+      <tr><th>Ex-Showroom</th>${compareList.map(item => formatCell(item.variant.ex_showroom, 'ex_showroom')).join("")}</tr>`;
+      
+  // Add offer rows if any variant has offers
+  if (hasAnyOffers) {
+    tableHTML += `
+      <tr style="background:#fef3c7"><th>Consumer Offer</th>${compareList.map(item => {
+        const offer = offersMap[item.modelKey + '_' + item.variant.variant];
+        return offer ? `<td>- ₹${offer.consumer_offer.toLocaleString("en-IN")}</td>` : '<td>—</td>';
+      }).join("")}</tr>
+      <tr style="background:#fef3c7"><th>Retail Support</th>${compareList.map(item => {
+        const offer = offersMap[item.modelKey + '_' + item.variant.variant];
+        return offer ? `<td>- ₹${offer.retail_support.toLocaleString("en-IN")}</td>` : '<td>—</td>';
+      }).join("")}</tr>
+      <tr style="background:#d1fae5;font-weight:700"><th>Discounted Ex-Showroom</th>${compareList.map(item => {
+        const offer = offersMap[item.modelKey + '_' + item.variant.variant];
+        const discounted = offer ? item.variant.ex_showroom - offer.consumer_offer - offer.retail_support : item.variant.ex_showroom;
+        return `<td>₹${discounted.toLocaleString("en-IN")}</td>`;
+      }).join("")}</tr>`;
+  }
+  
+  tableHTML += `
       <tr><th>Insurance</th>${compareList.map(item => formatCell(item.variant.insurance, 'insurance')).join("")}</tr>
       <tr><th>Road Tax</th>${compareList.map(item => formatCell(item.variant.road_tax, 'road_tax')).join("")}</tr>
       <tr><th>Registration</th>${compareList.map(item => `<td>₹${item.variant.registration}</td>`).join("")}</tr>
@@ -491,7 +670,28 @@ document.getElementById("compareNowBtn").addEventListener("click", async () => {
     tableHTML += `<tr><th>TCS</th>${compareList.map(item => `<td>${item.variant.tcs > 0 ? '₹' + item.variant.tcs.toLocaleString("en-IN") : 'N/A'}</td>`).join("")}</tr>`;
   }
 
-  tableHTML += `<tr class="onroad"><th>On-Road Price</th>${compareList.map(item => formatCell(item.variant.onroad, 'onroad')).join("")}</tr>
+  tableHTML += `<tr class="onroad"><th>On-Road Price</th>${compareList.map(item => {
+    const offer = offersMap[item.modelKey + '_' + item.variant.variant];
+    const discountedOnroad = offer && item.variant.onroad > 0
+      ? item.variant.onroad - offer.consumer_offer - offer.retail_support
+      : item.variant.onroad;
+    return formatCell(discountedOnroad, 'onroad');
+  }).join("")}</tr>`;
+  
+  // Add offer bonus rows if any variant has offers
+  if (hasAnyOffers) {
+    tableHTML += `
+      <tr style="background:#e0f2fe"><th>Exchange Bonus</th>${compareList.map(item => {
+        const offer = offersMap[item.modelKey + '_' + item.variant.variant];
+        return offer ? `<td>₹${offer.exchange_bonus.toLocaleString("en-IN")}</td>` : '<td>—</td>';
+      }).join("")}</tr>
+      <tr style="background:#e0f2fe"><th>Corporate/Rural Offer</th>${compareList.map(item => {
+        const offer = offersMap[item.modelKey + '_' + item.variant.variant];
+        return offer ? `<td>₹${offer.corporate_offer.toLocaleString("en-IN")} / ₹${offer.rural_offer.toLocaleString("en-IN")}</td>` : '<td>—</td>';
+      }).join("")}</tr>`;
+  }
+  
+  tableHTML += `
     </tbody>
   </table>`;
 
